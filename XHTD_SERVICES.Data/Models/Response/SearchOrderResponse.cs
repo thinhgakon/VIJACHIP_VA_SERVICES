@@ -8,9 +8,6 @@ namespace XHTD_SERVICES.Data.Models.Response
 {
     public class SearchOrderResponse
     {
-        public double totalBookQuantity { get; set; }
-        public double totalOrderQuantity { get; set; }
-        public int total { get; set; }
-        public List<OrderItemResponse> collection { get; set; }
+        public List<OrderItemResponse> responseData { get; set; }
     }
 }

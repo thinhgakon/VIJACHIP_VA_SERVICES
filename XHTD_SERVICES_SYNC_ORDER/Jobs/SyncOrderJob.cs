@@ -151,7 +151,7 @@ namespace XHTD_SERVICES_SYNC_ORDER.Jobs
 
             var responseData = JsonConvert.DeserializeObject<SearchOrderResponse>(content);
 
-            return responseData.collection.OrderBy(x => x.id).ToList();
+            return responseData.responseData.OrderBy(x => x.Id).ToList();
         }
 
         public async Task<bool> SyncPortalOrderToDMS(OrderItemResponse websaleOrder)
@@ -159,63 +159,20 @@ namespace XHTD_SERVICES_SYNC_ORDER.Jobs
             bool isSynced = false;
 
             var stateId = 0;
-            switch (websaleOrder.status.ToUpper())
-            {
-                case "BOOKED":
-                    stateId = (int)OrderState.DA_DAT_HANG;
-                    break;
-                case "VOIDED":
-                    stateId = (int)OrderState.DA_HUY_DON;
-                    break;
-                case "RECEIVING":
-                    stateId = (int)OrderState.DANG_LAY_HANG;
-                    break;
-                case "RECEIVED":
-                    stateId = (int)OrderState.DA_XUAT_HANG;
-                    break;
-            }
 
-            if (stateId == (int)OrderState.DA_DAT_HANG)
+            if ((bool)websaleOrder.IsCanceled == false)
             {
                 isSynced = await _storeOrderOperatingRepository.CreateAsync(websaleOrder);
 
-                if (isSynced)
-                {
-                    var vehicleCode = websaleOrder.vehicleCode.Replace("-", "").Replace("  ", "").Replace(" ", "").Replace("/", "").Replace(".", "").ToUpper();
-                    await _vehicleRepository.CreateAsync(vehicleCode);
-                }
-            }
-            else if (stateId == (int)OrderState.DANG_LAY_HANG)
-            {
-                if (!_storeOrderOperatingRepository.CheckExist(websaleOrder.id))
-                {
-                    isSynced = await _storeOrderOperatingRepository.CreateAsync(websaleOrder);
-                }
-                else 
-                { 
-                    isSynced = await _storeOrderOperatingRepository.UpdateReceivingOrder(websaleOrder.id, websaleOrder.timeIn, websaleOrder.loadweightnull);
-                }
-            }
-            else if (stateId == (int)OrderState.DA_XUAT_HANG)
-            {
-                // Kiểm tra có deliveryCode và isDone = false trong tblCallToTrough không => nếu có thì set isDone = true
-                await _callToTroughRepository.UpdateWhenCanRa(websaleOrder.deliveryCode);
-
-                if (!_storeOrderOperatingRepository.CheckExist(websaleOrder.id))
-                {
-                    isSynced = await _storeOrderOperatingRepository.CreateAsync(websaleOrder);
-                }
-                else 
-                { 
-                    isSynced = await _storeOrderOperatingRepository.UpdateReceivedOrder(websaleOrder.id, websaleOrder.timeOut, websaleOrder.loadweightfull);
-                }
+                //if (isSynced)
+                //{
+                //    var vehicleCode = websaleOrder.vehicleCode.Replace("-", "").Replace("  ", "").Replace(" ", "").Replace("/", "").Replace(".", "").ToUpper();
+                //    await _vehicleRepository.CreateAsync(vehicleCode);
+                //}
             }
             else if (stateId == (int)OrderState.DA_HUY_DON)
             {
-                // Kiểm tra có deliveryCode và isDone = false trong tblCallToTrough không => nếu có thì set isDone = true
-                await _callToTroughRepository.UpdateWhenHuyDon(websaleOrder.deliveryCode);
-
-                isSynced = await _storeOrderOperatingRepository.CancelOrder(websaleOrder.id);
+                isSynced = await _storeOrderOperatingRepository.CancelOrder(websaleOrder.Id);
             }
 
             return isSynced;

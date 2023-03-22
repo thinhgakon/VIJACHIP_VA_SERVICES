@@ -52,6 +52,8 @@ namespace XHTD_SERVICES.Data.Entities
         public Nullable<System.DateTime> TimeConfirm9 { get; set; }
         public string Confirm9Note { get; set; }
         public string Confirm9Image { get; set; }
+        public Nullable<int> Confirm10 { get; set; }
+        public Nullable<System.DateTime> TimeConfirm10 { get; set; }
         public Nullable<int> Step { get; set; }
         public Nullable<int> IndexOrder { get; set; }
         public Nullable<int> IndexOrder1 { get; set; }
@@ -106,5 +108,7 @@ namespace XHTD_SERVICES.Data.Entities
         public string CreateBy { get; set; }
         public Nullable<System.DateTime> UpdateDay { get; set; }
         public string UpdateBy { get; set; }
+        public Nullable<int> Type { get; set; }
+        public string PartnerId { get; set; }
     }
 }

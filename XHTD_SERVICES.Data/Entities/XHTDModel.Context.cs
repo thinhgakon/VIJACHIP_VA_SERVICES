@@ -28,6 +28,8 @@ namespace XHTD_SERVICES.Data.Entities
         public virtual DbSet<tblAccount> tblAccounts { get; set; }
         public virtual DbSet<tblAccountGroup> tblAccountGroups { get; set; }
         public virtual DbSet<tblAccountGroupFunction> tblAccountGroupFunctions { get; set; }
+        public virtual DbSet<tblBill> tblBills { get; set; }
+        public virtual DbSet<tblBillDetail> tblBillDetails { get; set; }
         public virtual DbSet<tblCallToTrough> tblCallToTroughs { get; set; }
         public virtual DbSet<tblCategory> tblCategories { get; set; }
         public virtual DbSet<tblCategoriesDevice> tblCategoriesDevices { get; set; }
@@ -39,14 +41,21 @@ namespace XHTD_SERVICES.Data.Entities
         public virtual DbSet<tblDriver> tblDrivers { get; set; }
         public virtual DbSet<tblDriverVehicle> tblDriverVehicles { get; set; }
         public virtual DbSet<tblFunction> tblFunctions { get; set; }
+        public virtual DbSet<tblItem> tblItems { get; set; }
         public virtual DbSet<tblLongVehicle> tblLongVehicles { get; set; }
         public virtual DbSet<tblMachine> tblMachines { get; set; }
         public virtual DbSet<tblMachineTypeProduct> tblMachineTypeProducts { get; set; }
         public virtual DbSet<tblNotification> tblNotifications { get; set; }
+        public virtual DbSet<tblPartner> tblPartners { get; set; }
+        public virtual DbSet<tblPartnersCarePlan> tblPartnersCarePlans { get; set; }
+        public virtual DbSet<tblPartnersGroup> tblPartnersGroups { get; set; }
         public virtual DbSet<tblPrintConfig> tblPrintConfigs { get; set; }
+        public virtual DbSet<tblProductionPlan> tblProductionPlans { get; set; }
+        public virtual DbSet<tblProductionPlanOrder> tblProductionPlanOrders { get; set; }
         public virtual DbSet<tblRfid> tblRfids { get; set; }
         public virtual DbSet<tblRfidSign> tblRfidSigns { get; set; }
         public virtual DbSet<tblScaleOperating> tblScaleOperatings { get; set; }
+        public virtual DbSet<tblStock> tblStocks { get; set; }
         public virtual DbSet<tblStoreOrderLocation> tblStoreOrderLocations { get; set; }
         public virtual DbSet<tblStoreOrderOperating> tblStoreOrderOperatings { get; set; }
         public virtual DbSet<tblStoreOrderOperatingPriority> tblStoreOrderOperatingPriorities { get; set; }
@@ -55,7 +64,12 @@ namespace XHTD_SERVICES.Data.Entities
         public virtual DbSet<tblTroughTypeProduct> tblTroughTypeProducts { get; set; }
         public virtual DbSet<tblTypeProduct> tblTypeProducts { get; set; }
         public virtual DbSet<tblVehicle> tblVehicles { get; set; }
+        public virtual DbSet<tblZone> tblZones { get; set; }
         public virtual DbSet<tblCompany> tblCompanies { get; set; }
+        public virtual DbSet<tblContract> tblContracts { get; set; }
+        public virtual DbSet<tblContractItem> tblContractItems { get; set; }
+        public virtual DbSet<tblPartnersCareInfo> tblPartnersCareInfoes { get; set; }
+        public virtual DbSet<tblProductionPlanProduct> tblProductionPlanProducts { get; set; }
         public virtual DbSet<tblStoreOrderOperatingVoice> tblStoreOrderOperatingVoices { get; set; }
     }
 }

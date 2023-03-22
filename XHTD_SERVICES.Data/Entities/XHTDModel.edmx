@@ -52,6 +52,43 @@
           <Property Name="UpdateDay" Type="datetime" />
           <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="tblBill">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TypeId" Type="int" />
+          <Property Name="PartnerId" Type="nvarchar" MaxLength="255" />
+          <Property Name="StockCode1" Type="nvarchar" MaxLength="50" />
+          <Property Name="StockCode2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Note" Type="nvarchar" MaxLength="500" />
+          <Property Name="TotalMoney" Type="float" />
+          <Property Name="TotalDiscount" Type="float" />
+          <Property Name="TotalBanlancer" Type="float" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateDay" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDay" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblBillDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BillCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ItemCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="255" />
+          <Property Name="UnitName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Number" Type="float" />
+          <Property Name="Price" Type="float" />
+          <Property Name="Money" Type="float" />
+          <Property Name="CreateDay" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDay" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tblCallToTrough">
           <Key>
             <PropertyRef Name="Id" />
@@ -124,7 +161,7 @@
           <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'XHTD.dbo.tblCompany' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblCompany' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblCompany">
           <Key>
             <PropertyRef Name="ComId" />
@@ -154,6 +191,43 @@ warning 6002: The table/view 'XHTD.dbo.tblCompany' does not have a primary key d
           <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
           <Property Name="UpdateDay" Type="datetime" />
           <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblContract' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblContract">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PartnerId" Type="nvarchar" MaxLength="255" />
+          <Property Name="TypeId" Type="int" />
+          <Property Name="Number" Type="nvarchar" MaxLength="50" />
+          <Property Name="Title" Type="nvarchar" MaxLength="500" />
+          <Property Name="SignDay" Type="datetime" />
+          <Property Name="FinishDay" Type="datetime" />
+          <Property Name="AttachFile" Type="nvarchar" MaxLength="500" />
+          <Property Name="Quantity" Type="float" />
+          <Property Name="TotalMoney" Type="float" />
+          <Property Name="CreateDay" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDay" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblContractItems' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblContractItems">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContractNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ItemCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ItemQuantity" Type="float" />
+          <Property Name="ItemInfo" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreateDay" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblDevice">
           <Key>
@@ -257,6 +331,25 @@ warning 6002: The table/view 'XHTD.dbo.tblCompany' does not have a primary key d
           <Property Name="UpdateDay" Type="datetime" />
           <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="tblItems">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="ItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PartnerId" Type="uniqueidentifier" />
+          <Property Name="UnitName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="float" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="State" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="32" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="IsFinishedProduct" Type="bit" />
+        </EntityType>
         <EntityType Name="tblLongVehicle">
           <Key>
             <PropertyRef Name="Id" />
@@ -309,6 +402,80 @@ warning 6002: The table/view 'XHTD.dbo.tblCompany' does not have a primary key d
           <Property Name="UpdateDay" Type="datetime" />
           <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="tblPartners">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PartnerGroupId" Type="int" />
+          <Property Name="PartnerId" Type="nvarchar" MaxLength="255" />
+          <Property Name="PartnerAccount" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="IsCustomer" Type="bit" />
+          <Property Name="IsProvider" Type="bit" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Manager" Type="varchar" MaxLength="255" />
+          <Property Name="SectorId" Type="int" />
+          <Property Name="ProvinceId" Type="int" />
+          <Property Name="DistrictId" Type="int" />
+          <Property Name="CommuneId" Type="int" />
+          <Property Name="State" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="32" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="32" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="ZoneCode" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblPartnersCareInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblPartnersCareInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="50" />
+          <Property Name="PartnerId" Type="nvarchar" MaxLength="255" />
+          <Property Name="CareDay" Type="datetime" />
+          <Property Name="CareInfo" Type="nvarchar" MaxLength="1500" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="50" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateDay" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDay" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblPartnersCarePlans">
+          <Key>
+            <PropertyRef Name="Number" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="500" />
+          <Property Name="Info" Type="nvarchar" MaxLength="1500" />
+          <Property Name="DayFrom" Type="datetime" />
+          <Property Name="DayTo" Type="datetime" />
+          <Property Name="CreateDay" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDay" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblPartnersGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="State" Type="bit" />
+          <Property Name="CreateDay" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UppdateDay" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tblPrintConfig">
           <Key>
             <PropertyRef Name="Id" />
@@ -320,6 +487,70 @@ warning 6002: The table/view 'XHTD.dbo.tblCompany' does not have a primary key d
           <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
           <Property Name="UpdateDay" Type="datetime" />
           <Property Name="UpdateBy" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tblProductionPlan">
+          <Key>
+            <PropertyRef Name="Number" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RefNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Title" Type="nvarchar" MaxLength="500" />
+          <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DayFrom" Type="datetime" />
+          <Property Name="DayTo" Type="datetime" />
+          <Property Name="UnitName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PlanCreationDate" Type="datetime" />
+          <Property Name="Note" Type="nvarchar" MaxLength="1500" />
+          <Property Name="CreateDay" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDay" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Step" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblProductionPlanOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PartnerAccount" Type="nvarchar" MaxLength="50" />
+          <Property Name="ZoneCode" Type="varchar" MaxLength="50" />
+          <Property Name="ItemCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Number" Type="float" />
+          <Property Name="Note" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreateDay" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDay" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductionPlanId" Type="int" />
+          <Property Name="PartnerName" Type="nvarchar" MaxLength="255" />
+          <Property Name="ZoneName" Type="nvarchar" MaxLength="500" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblProductionPlanProducts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblProductionPlanProducts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Balancer" Type="float" />
+          <Property Name="PlanFactory" Type="float" />
+          <Property Name="PlanAgent" Type="float" />
+          <Property Name="PlanOutsource" Type="float" />
+          <Property Name="TotalNumber" Type="float" />
+          <Property Name="TotalNumberAccumulated" Type="float" />
+          <Property Name="Note" Type="nvarchar" MaxLength="1500" />
+          <Property Name="CreateDay" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDay" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductionPlanId" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="BalancerDate" Type="datetime" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tblRfid">
           <Key>
@@ -367,6 +598,20 @@ warning 6002: The table/view 'XHTD.dbo.tblCompany' does not have a primary key d
           <Property Name="TimeIn" Type="datetime" />
           <Property Name="CreateDay" Type="datetime" />
           <Property Name="UpdateDay" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblStock">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="500" />
+          <Property Name="Manager" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateDay" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDay" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblStoreOrderLocation">
           <Key>
@@ -427,6 +672,8 @@ warning 6002: The table/view 'XHTD.dbo.tblCompany' does not have a primary key d
           <Property Name="TimeConfirm9" Type="datetime" />
           <Property Name="Confirm9Note" Type="nvarchar" MaxLength="500" />
           <Property Name="Confirm9Image" Type="nvarchar" MaxLength="300" />
+          <Property Name="Confirm10" Type="int" />
+          <Property Name="TimeConfirm10" Type="datetime" />
           <Property Name="Step" Type="int" />
           <Property Name="IndexOrder" Type="int" />
           <Property Name="IndexOrder1" Type="int" />
@@ -481,6 +728,8 @@ warning 6002: The table/view 'XHTD.dbo.tblCompany' does not have a primary key d
           <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
           <Property Name="UpdateDay" Type="datetime" />
           <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type" Type="int" />
+          <Property Name="PartnerId" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tblStoreOrderOperatingPriority">
           <Key>
@@ -495,7 +744,7 @@ warning 6002: The table/view 'XHTD.dbo.tblCompany' does not have a primary key d
           <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblStoreOrderOperatingVoice">
           <Key>
             <PropertyRef Name="Id" />
@@ -601,10 +850,25 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
           <Property Name="UpdateDay" Type="datetime" />
           <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="tblZones">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="State" Type="bit" />
+          <Property Name="CreateDay" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDay" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityContainer Name="XHTD_SERVICESDataEntitiesStoreContainer">
           <EntitySet Name="tblAccount" EntityType="Self.tblAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAccountGroup" EntityType="Self.tblAccountGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAccountGroupFunction" EntityType="Self.tblAccountGroupFunction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblBill" EntityType="Self.tblBill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblBillDetail" EntityType="Self.tblBillDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCallToTrough" EntityType="Self.tblCallToTrough" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCategories" EntityType="Self.tblCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCategoriesDevices" EntityType="Self.tblCategoriesDevices" Schema="dbo" store:Type="Tables" />
@@ -616,14 +880,21 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
           <EntitySet Name="tblDriver" EntityType="Self.tblDriver" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblDriverVehicle" EntityType="Self.tblDriverVehicle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFunction" EntityType="Self.tblFunction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblItems" EntityType="Self.tblItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblLongVehicle" EntityType="Self.tblLongVehicle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblMachine" EntityType="Self.tblMachine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblMachineTypeProduct" EntityType="Self.tblMachineTypeProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblNotification" EntityType="Self.tblNotification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPartners" EntityType="Self.tblPartners" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPartnersCarePlans" EntityType="Self.tblPartnersCarePlans" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPartnersGroup" EntityType="Self.tblPartnersGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPrintConfig" EntityType="Self.tblPrintConfig" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProductionPlan" EntityType="Self.tblProductionPlan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProductionPlanOrder" EntityType="Self.tblProductionPlanOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRfid" EntityType="Self.tblRfid" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRfidSign" EntityType="Self.tblRfidSign" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblScaleOperating" EntityType="Self.tblScaleOperating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblStock" EntityType="Self.tblStock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblStoreOrderLocation" EntityType="Self.tblStoreOrderLocation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblStoreOrderOperating" EntityType="Self.tblStoreOrderOperating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblStoreOrderOperatingPriority" EntityType="Self.tblStoreOrderOperatingPriority" Schema="dbo" store:Type="Tables" />
@@ -632,6 +903,7 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
           <EntitySet Name="tblTroughTypeProduct" EntityType="Self.tblTroughTypeProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblTypeProduct" EntityType="Self.tblTypeProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVehicle" EntityType="Self.tblVehicle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblZones" EntityType="Self.tblZones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCompany" EntityType="Self.tblCompany" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [tblCompany].[ComId] AS [ComId], 
@@ -648,6 +920,74 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
     [tblCompany].[UpdateDay] AS [UpdateDay], 
     [tblCompany].[UpdateBy] AS [UpdateBy]
     FROM [dbo].[tblCompany] AS [tblCompany]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblContract" EntityType="Self.tblContract" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblContract].[Id] AS [Id], 
+    [tblContract].[PartnerId] AS [PartnerId], 
+    [tblContract].[TypeId] AS [TypeId], 
+    [tblContract].[Number] AS [Number], 
+    [tblContract].[Title] AS [Title], 
+    [tblContract].[SignDay] AS [SignDay], 
+    [tblContract].[FinishDay] AS [FinishDay], 
+    [tblContract].[AttachFile] AS [AttachFile], 
+    [tblContract].[Quantity] AS [Quantity], 
+    [tblContract].[TotalMoney] AS [TotalMoney], 
+    [tblContract].[CreateDay] AS [CreateDay], 
+    [tblContract].[CreateBy] AS [CreateBy], 
+    [tblContract].[UpdateDay] AS [UpdateDay], 
+    [tblContract].[UpdateBy] AS [UpdateBy]
+    FROM [dbo].[tblContract] AS [tblContract]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblContractItems" EntityType="Self.tblContractItems" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblContractItems].[Id] AS [Id], 
+    [tblContractItems].[ContractNumber] AS [ContractNumber], 
+    [tblContractItems].[ItemCode] AS [ItemCode], 
+    [tblContractItems].[ItemQuantity] AS [ItemQuantity], 
+    [tblContractItems].[ItemInfo] AS [ItemInfo], 
+    [tblContractItems].[CreateDay] AS [CreateDay], 
+    [tblContractItems].[CreatedBy] AS [CreatedBy], 
+    [tblContractItems].[UpdatedDate] AS [UpdatedDate], 
+    [tblContractItems].[UpdatedBy] AS [UpdatedBy]
+    FROM [dbo].[tblContractItems] AS [tblContractItems]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblPartnersCareInfo" EntityType="Self.tblPartnersCareInfo" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblPartnersCareInfo].[Id] AS [Id], 
+    [tblPartnersCareInfo].[Number] AS [Number], 
+    [tblPartnersCareInfo].[PartnerId] AS [PartnerId], 
+    [tblPartnersCareInfo].[CareDay] AS [CareDay], 
+    [tblPartnersCareInfo].[CareInfo] AS [CareInfo], 
+    [tblPartnersCareInfo].[UserName] AS [UserName], 
+    [tblPartnersCareInfo].[Longitude] AS [Longitude], 
+    [tblPartnersCareInfo].[Latitude] AS [Latitude], 
+    [tblPartnersCareInfo].[CreateDay] AS [CreateDay], 
+    [tblPartnersCareInfo].[CreateBy] AS [CreateBy], 
+    [tblPartnersCareInfo].[UpdateDay] AS [UpdateDay], 
+    [tblPartnersCareInfo].[UpdateBy] AS [UpdateBy]
+    FROM [dbo].[tblPartnersCareInfo] AS [tblPartnersCareInfo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblProductionPlanProducts" EntityType="Self.tblProductionPlanProducts" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblProductionPlanProducts].[Id] AS [Id], 
+    [tblProductionPlanProducts].[ItemCode] AS [ItemCode], 
+    [tblProductionPlanProducts].[Balancer] AS [Balancer], 
+    [tblProductionPlanProducts].[PlanFactory] AS [PlanFactory], 
+    [tblProductionPlanProducts].[PlanAgent] AS [PlanAgent], 
+    [tblProductionPlanProducts].[PlanOutsource] AS [PlanOutsource], 
+    [tblProductionPlanProducts].[TotalNumber] AS [TotalNumber], 
+    [tblProductionPlanProducts].[TotalNumberAccumulated] AS [TotalNumberAccumulated], 
+    [tblProductionPlanProducts].[Note] AS [Note], 
+    [tblProductionPlanProducts].[CreateDay] AS [CreateDay], 
+    [tblProductionPlanProducts].[CreateBy] AS [CreateBy], 
+    [tblProductionPlanProducts].[UpdateDay] AS [UpdateDay], 
+    [tblProductionPlanProducts].[UpdateBy] AS [UpdateBy], 
+    [tblProductionPlanProducts].[ProductionPlanId] AS [ProductionPlanId], 
+    [tblProductionPlanProducts].[IsDeleted] AS [IsDeleted], 
+    [tblProductionPlanProducts].[BalancerDate] AS [BalancerDate], 
+    [tblProductionPlanProducts].[ItemName] AS [ItemName]
+    FROM [dbo].[tblProductionPlanProducts] AS [tblProductionPlanProducts]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="tblStoreOrderOperatingVoice" EntityType="Self.tblStoreOrderOperatingVoice" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -711,6 +1051,43 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
           <Property Name="F_View" Type="Boolean" />
           <Property Name="F_Print" Type="Boolean" />
           <Property Name="F_Other" Type="Boolean" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblBill">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TypeId" Type="Int32" />
+          <Property Name="PartnerId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="StockCode1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StockCode2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TotalMoney" Type="Double" />
+          <Property Name="TotalDiscount" Type="Double" />
+          <Property Name="TotalBanlancer" Type="Double" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblBillDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BillCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UnitName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="Double" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="Money" Type="Double" />
           <Property Name="CreateDay" Type="DateTime" Precision="3" />
           <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdateDay" Type="DateTime" Precision="3" />
@@ -901,6 +1278,25 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
           <Property Name="UpdateDay" Type="DateTime" Precision="3" />
           <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="tblItem">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="ItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PartnerId" Type="Guid" />
+          <Property Name="UnitName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="IsFinishedProduct" Type="Boolean" />
+        </EntityType>
         <EntityType Name="tblLongVehicle">
           <Key>
             <PropertyRef Name="Id" />
@@ -953,6 +1349,61 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
           <Property Name="UpdateDay" Type="DateTime" Precision="3" />
           <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="tblPartner">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartnerGroupId" Type="Int32" />
+          <Property Name="PartnerId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PartnerAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsCustomer" Type="Boolean" />
+          <Property Name="IsProvider" Type="Boolean" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Manager" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SectorId" Type="Int32" />
+          <Property Name="ProvinceId" Type="Int32" />
+          <Property Name="DistrictId" Type="Int32" />
+          <Property Name="CommuneId" Type="Int32" />
+          <Property Name="State" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ZoneCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblPartnersCarePlan">
+          <Key>
+            <PropertyRef Name="Number" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Info" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="DayFrom" Type="DateTime" Precision="3" />
+          <Property Name="DayTo" Type="DateTime" Precision="3" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblPartnersGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="Boolean" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UppdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="tblPrintConfig">
           <Key>
             <PropertyRef Name="Id" />
@@ -964,6 +1415,46 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
           <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdateDay" Type="DateTime" Precision="3" />
           <Property Name="UpdateBy" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblProductionPlan">
+          <Key>
+            <PropertyRef Name="Number" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RefNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DayFrom" Type="DateTime" Precision="3" />
+          <Property Name="DayTo" Type="DateTime" Precision="3" />
+          <Property Name="UnitName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PlanCreationDate" Type="DateTime" Precision="3" />
+          <Property Name="Note" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Step" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblProductionPlanOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartnerAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ZoneCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="Double" />
+          <Property Name="Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductionPlanId" Type="Int32" />
+          <Property Name="PartnerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ZoneName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ItemName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
         </EntityType>
         <EntityType Name="tblRfid">
           <Key>
@@ -1011,6 +1502,20 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
           <Property Name="TimeIn" Type="DateTime" Precision="3" />
           <Property Name="CreateDay" Type="DateTime" Precision="3" />
           <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblStock">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Manager" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblStoreOrderLocation">
           <Key>
@@ -1071,6 +1576,8 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
           <Property Name="TimeConfirm9" Type="DateTime" Precision="3" />
           <Property Name="Confirm9Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Confirm9Image" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Confirm10" Type="Int32" />
+          <Property Name="TimeConfirm10" Type="DateTime" Precision="3" />
           <Property Name="Step" Type="Int32" />
           <Property Name="IndexOrder" Type="Int32" />
           <Property Name="IndexOrder1" Type="Int32" />
@@ -1125,6 +1632,8 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
           <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdateDay" Type="DateTime" Precision="3" />
           <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="PartnerId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblStoreOrderOperatingPriority">
           <Key>
@@ -1228,6 +1737,19 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
           <Property Name="UpdateDay" Type="DateTime" Precision="3" />
           <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="tblZone">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="Boolean" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="tblCompany">
           <Key>
             <PropertyRef Name="ComId" />
@@ -1245,6 +1767,78 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
           <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdateDay" Type="DateTime" Precision="3" />
           <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblContract">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartnerId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TypeId" Type="Int32" />
+          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SignDay" Type="DateTime" Precision="3" />
+          <Property Name="FinishDay" Type="DateTime" Precision="3" />
+          <Property Name="AttachFile" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Double" />
+          <Property Name="TotalMoney" Type="Double" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblContractItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContractNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemQuantity" Type="Double" />
+          <Property Name="ItemInfo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblPartnersCareInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PartnerId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CareDay" Type="DateTime" Precision="3" />
+          <Property Name="CareInfo" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblProductionPlanProduct">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Balancer" Type="Double" />
+          <Property Name="PlanFactory" Type="Double" />
+          <Property Name="PlanAgent" Type="Double" />
+          <Property Name="PlanOutsource" Type="Double" />
+          <Property Name="TotalNumber" Type="Double" />
+          <Property Name="TotalNumberAccumulated" Type="Double" />
+          <Property Name="Note" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductionPlanId" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="BalancerDate" Type="DateTime" Precision="3" />
+          <Property Name="ItemName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblStoreOrderOperatingVoice">
           <Key>
@@ -1265,6 +1859,8 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
           <EntitySet Name="tblAccounts" EntityType="Self.tblAccount" />
           <EntitySet Name="tblAccountGroups" EntityType="Self.tblAccountGroup" />
           <EntitySet Name="tblAccountGroupFunctions" EntityType="Self.tblAccountGroupFunction" />
+          <EntitySet Name="tblBills" EntityType="Self.tblBill" />
+          <EntitySet Name="tblBillDetails" EntityType="Self.tblBillDetail" />
           <EntitySet Name="tblCallToTroughs" EntityType="Self.tblCallToTrough" />
           <EntitySet Name="tblCategories" EntityType="Self.tblCategory" />
           <EntitySet Name="tblCategoriesDevices" EntityType="Self.tblCategoriesDevice" />
@@ -1276,14 +1872,21 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
           <EntitySet Name="tblDrivers" EntityType="Self.tblDriver" />
           <EntitySet Name="tblDriverVehicles" EntityType="Self.tblDriverVehicle" />
           <EntitySet Name="tblFunctions" EntityType="Self.tblFunction" />
+          <EntitySet Name="tblItems" EntityType="Self.tblItem" />
           <EntitySet Name="tblLongVehicles" EntityType="Self.tblLongVehicle" />
           <EntitySet Name="tblMachines" EntityType="Self.tblMachine" />
           <EntitySet Name="tblMachineTypeProducts" EntityType="Self.tblMachineTypeProduct" />
           <EntitySet Name="tblNotifications" EntityType="Self.tblNotification" />
+          <EntitySet Name="tblPartners" EntityType="Self.tblPartner" />
+          <EntitySet Name="tblPartnersCarePlans" EntityType="Self.tblPartnersCarePlan" />
+          <EntitySet Name="tblPartnersGroups" EntityType="Self.tblPartnersGroup" />
           <EntitySet Name="tblPrintConfigs" EntityType="Self.tblPrintConfig" />
+          <EntitySet Name="tblProductionPlans" EntityType="Self.tblProductionPlan" />
+          <EntitySet Name="tblProductionPlanOrders" EntityType="Self.tblProductionPlanOrder" />
           <EntitySet Name="tblRfids" EntityType="Self.tblRfid" />
           <EntitySet Name="tblRfidSigns" EntityType="Self.tblRfidSign" />
           <EntitySet Name="tblScaleOperatings" EntityType="Self.tblScaleOperating" />
+          <EntitySet Name="tblStocks" EntityType="Self.tblStock" />
           <EntitySet Name="tblStoreOrderLocations" EntityType="Self.tblStoreOrderLocation" />
           <EntitySet Name="tblStoreOrderOperatings" EntityType="Self.tblStoreOrderOperating" />
           <EntitySet Name="tblStoreOrderOperatingPriorities" EntityType="Self.tblStoreOrderOperatingPriority" />
@@ -1292,7 +1895,12 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
           <EntitySet Name="tblTroughTypeProducts" EntityType="Self.tblTroughTypeProduct" />
           <EntitySet Name="tblTypeProducts" EntityType="Self.tblTypeProduct" />
           <EntitySet Name="tblVehicles" EntityType="Self.tblVehicle" />
+          <EntitySet Name="tblZones" EntityType="Self.tblZone" />
           <EntitySet Name="tblCompanies" EntityType="Self.tblCompany" />
+          <EntitySet Name="tblContracts" EntityType="Self.tblContract" />
+          <EntitySet Name="tblContractItems" EntityType="Self.tblContractItem" />
+          <EntitySet Name="tblPartnersCareInfoes" EntityType="Self.tblPartnersCareInfo" />
+          <EntitySet Name="tblProductionPlanProducts" EntityType="Self.tblProductionPlanProduct" />
           <EntitySet Name="tblStoreOrderOperatingVoices" EntityType="Self.tblStoreOrderOperatingVoice" />
         </EntityContainer>
       </Schema>
@@ -1344,6 +1952,45 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
                 <ScalarProperty Name="F_View" ColumnName="F_View" />
                 <ScalarProperty Name="F_Print" ColumnName="F_Print" />
                 <ScalarProperty Name="F_Other" ColumnName="F_Other" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBills">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblBill">
+              <MappingFragment StoreEntitySet="tblBill">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+                <ScalarProperty Name="StockCode1" ColumnName="StockCode1" />
+                <ScalarProperty Name="StockCode2" ColumnName="StockCode2" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
+                <ScalarProperty Name="TotalDiscount" ColumnName="TotalDiscount" />
+                <ScalarProperty Name="TotalBanlancer" ColumnName="TotalBanlancer" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBillDetails">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblBillDetail">
+              <MappingFragment StoreEntitySet="tblBillDetail">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BillCode" ColumnName="BillCode" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Money" ColumnName="Money" />
                 <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
                 <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
                 <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
@@ -1547,6 +2194,26 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblItems">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblItem">
+              <MappingFragment StoreEntitySet="tblItems">
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+                <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsFinishedProduct" ColumnName="IsFinishedProduct" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblLongVehicles">
             <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblLongVehicle">
               <MappingFragment StoreEntitySet="tblLongVehicle">
@@ -1603,6 +2270,64 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblPartners">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblPartner">
+              <MappingFragment StoreEntitySet="tblPartners">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PartnerGroupId" ColumnName="PartnerGroupId" />
+                <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+                <ScalarProperty Name="PartnerAccount" ColumnName="PartnerAccount" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsCustomer" ColumnName="IsCustomer" />
+                <ScalarProperty Name="IsProvider" ColumnName="IsProvider" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Manager" ColumnName="Manager" />
+                <ScalarProperty Name="SectorId" ColumnName="SectorId" />
+                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="CommuneId" ColumnName="CommuneId" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="ZoneCode" ColumnName="ZoneCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPartnersCarePlans">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblPartnersCarePlan">
+              <MappingFragment StoreEntitySet="tblPartnersCarePlans">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+                <ScalarProperty Name="DayFrom" ColumnName="DayFrom" />
+                <ScalarProperty Name="DayTo" ColumnName="DayTo" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPartnersGroups">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblPartnersGroup">
+              <MappingFragment StoreEntitySet="tblPartnersGroup">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UppdateDay" ColumnName="UppdateDay" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblPrintConfigs">
             <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblPrintConfig">
               <MappingFragment StoreEntitySet="tblPrintConfig">
@@ -1613,6 +2338,48 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
                 <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
                 <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
                 <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProductionPlans">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblProductionPlan">
+              <MappingFragment StoreEntitySet="tblProductionPlan">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RefNumber" ColumnName="RefNumber" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="DayFrom" ColumnName="DayFrom" />
+                <ScalarProperty Name="DayTo" ColumnName="DayTo" />
+                <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+                <ScalarProperty Name="PlanCreationDate" ColumnName="PlanCreationDate" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Step" ColumnName="Step" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProductionPlanOrders">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblProductionPlanOrder">
+              <MappingFragment StoreEntitySet="tblProductionPlanOrder">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PartnerAccount" ColumnName="PartnerAccount" />
+                <ScalarProperty Name="ZoneCode" ColumnName="ZoneCode" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="ProductionPlanId" ColumnName="ProductionPlanId" />
+                <ScalarProperty Name="PartnerName" ColumnName="PartnerName" />
+                <ScalarProperty Name="ZoneName" ColumnName="ZoneName" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1663,6 +2430,21 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
                 <ScalarProperty Name="TimeIn" ColumnName="TimeIn" />
                 <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
                 <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblStocks">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblStock">
+              <MappingFragment StoreEntitySet="tblStock">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Manager" ColumnName="Manager" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1725,6 +2507,8 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
                 <ScalarProperty Name="TimeConfirm9" ColumnName="TimeConfirm9" />
                 <ScalarProperty Name="Confirm9Note" ColumnName="Confirm9Note" />
                 <ScalarProperty Name="Confirm9Image" ColumnName="Confirm9Image" />
+                <ScalarProperty Name="Confirm10" ColumnName="Confirm10" />
+                <ScalarProperty Name="TimeConfirm10" ColumnName="TimeConfirm10" />
                 <ScalarProperty Name="Step" ColumnName="Step" />
                 <ScalarProperty Name="IndexOrder" ColumnName="IndexOrder" />
                 <ScalarProperty Name="IndexOrder1" ColumnName="IndexOrder1" />
@@ -1779,6 +2563,8 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
                 <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
                 <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
                 <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1890,6 +2676,20 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblZones">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblZone">
+              <MappingFragment StoreEntitySet="tblZones">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblCompanies">
             <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblCompany">
               <MappingFragment StoreEntitySet="tblCompany">
@@ -1906,6 +2706,82 @@ warning 6002: The table/view 'XHTD.dbo.tblStoreOrderOperatingVoice' does not hav
                 <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
                 <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
                 <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblContracts">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblContract">
+              <MappingFragment StoreEntitySet="tblContract">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="SignDay" ColumnName="SignDay" />
+                <ScalarProperty Name="FinishDay" ColumnName="FinishDay" />
+                <ScalarProperty Name="AttachFile" ColumnName="AttachFile" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblContractItems">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblContractItem">
+              <MappingFragment StoreEntitySet="tblContractItems">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ContractNumber" ColumnName="ContractNumber" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="ItemQuantity" ColumnName="ItemQuantity" />
+                <ScalarProperty Name="ItemInfo" ColumnName="ItemInfo" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPartnersCareInfoes">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblPartnersCareInfo">
+              <MappingFragment StoreEntitySet="tblPartnersCareInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+                <ScalarProperty Name="CareDay" ColumnName="CareDay" />
+                <ScalarProperty Name="CareInfo" ColumnName="CareInfo" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProductionPlanProducts">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblProductionPlanProduct">
+              <MappingFragment StoreEntitySet="tblProductionPlanProducts">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="Balancer" ColumnName="Balancer" />
+                <ScalarProperty Name="PlanFactory" ColumnName="PlanFactory" />
+                <ScalarProperty Name="PlanAgent" ColumnName="PlanAgent" />
+                <ScalarProperty Name="PlanOutsource" ColumnName="PlanOutsource" />
+                <ScalarProperty Name="TotalNumber" ColumnName="TotalNumber" />
+                <ScalarProperty Name="TotalNumberAccumulated" ColumnName="TotalNumberAccumulated" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="ProductionPlanId" ColumnName="ProductionPlanId" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="BalancerDate" ColumnName="BalancerDate" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
