@@ -20,7 +20,6 @@ namespace XHTD_SERVICES_SYNC_ORDER
             builder.RegisterType<VehicleRepository>().AsSelf();
             builder.RegisterType<CallToTroughRepository>().AsSelf();
             builder.RegisterType<SystemParameterRepository>().AsSelf();
-            builder.RegisterType<Notification>().AsSelf();
             builder.RegisterType<SyncOrderLogger>().AsSelf();
 
             RegisterScheduler(builder);

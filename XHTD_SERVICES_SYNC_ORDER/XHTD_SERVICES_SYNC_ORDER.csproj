@@ -123,6 +123,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DIBootstrapper.cs" />
+    <Compile Include="Models\Response\PortalTokenResponse.cs" />
+    <Compile Include="Models\Response\GetPortalTokenResponse.cs" />
     <Compile Include="SyncOrderLogger.cs" />
     <Compile Include="Jobs\SyncOrderJob.cs" />
     <Compile Include="Jobs\SyncOrderStatusJob.cs" />

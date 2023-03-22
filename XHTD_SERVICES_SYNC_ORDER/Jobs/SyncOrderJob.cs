@@ -27,8 +27,6 @@ namespace XHTD_SERVICES_SYNC_ORDER.Jobs
 
         protected readonly SystemParameterRepository _systemParameterRepository;
 
-        protected readonly Notification _notification;
-
         protected readonly SyncOrderLogger _syncOrderLogger;
 
         private static string strToken;
@@ -46,7 +44,6 @@ namespace XHTD_SERVICES_SYNC_ORDER.Jobs
             VehicleRepository vehicleRepository,
             CallToTroughRepository callToTroughRepository,
             SystemParameterRepository systemParameterRepository,
-            Notification notification,
             SyncOrderLogger syncOrderLogger
             )
         {
@@ -54,7 +51,6 @@ namespace XHTD_SERVICES_SYNC_ORDER.Jobs
             _vehicleRepository = vehicleRepository;
             _callToTroughRepository = callToTroughRepository;
             _systemParameterRepository = systemParameterRepository;
-            _notification = notification;
             _syncOrderLogger = syncOrderLogger;
         }
 
@@ -126,35 +122,18 @@ namespace XHTD_SERVICES_SYNC_ORDER.Jobs
                     if (!isChanged) isChanged = isSynced;
                 }
             }
-
-            if (isChanged)
-            {
-                _notification.SendNotification(
-                    "SYNC_ORDER",
-                    null,
-                    1,
-                    "Đồng bộ đơn hàng thành công",
-                    0,
-                    null,
-                    null,
-                    0,
-                    null,
-                    null,
-                    null
-                );
-            }
         }
 
         public void GetToken()
         {
             try
             {
-                IRestResponse response = HttpRequest.GetWebsaleToken();
+                IRestResponse response = HttpRequest.GetPortalToken();
 
                 var content = response.Content;
 
-                var responseData = JsonConvert.DeserializeObject<GetTokenResponse>(content);
-                strToken = responseData.access_token;
+                var responseData = JsonConvert.DeserializeObject<GetPortalTokenResponse>(content);
+                strToken = responseData.responseData.access_token;
             }
             catch (Exception ex)
             {

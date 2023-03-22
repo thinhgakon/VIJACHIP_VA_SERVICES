@@ -16,7 +16,7 @@ namespace XHTD_SERVICES.Helper
     {
         public static IRestResponse GetWebsaleOrder(string token, int numberHoursSearchOrder)
         {
-            var apiUrl = ConfigurationManager.GetSection("API_WebSale/Url") as NameValueCollection;
+            var apiUrl = ConfigurationManager.GetSection("API_Portal/Url") as NameValueCollection;
 
             var requestData = new SearchOrderRequest
             {
@@ -39,10 +39,10 @@ namespace XHTD_SERVICES.Helper
             return response;
         }
 
-        public static IRestResponse GetDMSToken()
+        public static IRestResponse GetPortalToken()
         {
-            var apiUrl = ConfigurationManager.GetSection("API_DMS/Url") as NameValueCollection;
-            var account = ConfigurationManager.GetSection("API_DMS/Account") as NameValueCollection;
+            var apiUrl = ConfigurationManager.GetSection("API_Portal/Url") as NameValueCollection;
+            var account = ConfigurationManager.GetSection("API_Portal/Account") as NameValueCollection;
 
             var requestData = new GetDMSTokenRequest
             {
@@ -57,35 +57,6 @@ namespace XHTD_SERVICES.Helper
             request.Method = Method.POST;
 
             request.AddJsonBody(requestData);
-            request.AddHeader("Accept", "application/json");
-            request.AddHeader("Content-Type", "application/json");
-            request.RequestFormat = DataFormat.Json;
-
-            IRestResponse response = client.Execute(request);
-
-            return response;
-        }
-
-        public static IRestResponse SendDMSMsg(string token, SendMsgRequest messenge)
-        {
-            var apiUrl = ConfigurationManager.GetSection("API_DMS/Url") as NameValueCollection;
-
-            var requestData = new SendMsgRequest
-            {
-                Type = messenge.Type,
-                Source = messenge.Source,
-                Status = messenge.Status,
-                Direction = messenge.Direction,
-                Content = messenge.Content,
-                Data = messenge.Data
-            };
-
-            var client = new RestClient(apiUrl["SendMsg"]);
-            var request = new RestRequest();
-
-            request.Method = Method.POST;
-            request.AddJsonBody(requestData);
-            request.AddHeader("Authorization", "Bearer " + token);
             request.AddHeader("Accept", "application/json");
             request.AddHeader("Content-Type", "application/json");
             request.RequestFormat = DataFormat.Json;
