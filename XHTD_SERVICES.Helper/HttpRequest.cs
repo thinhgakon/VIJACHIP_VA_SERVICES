@@ -14,7 +14,7 @@ namespace XHTD_SERVICES.Helper
 {
     public static class HttpRequest
     {
-        public static IRestResponse GetWebsaleOrder(string token, int numberHoursSearchOrder)
+        public static IRestResponse GetPortalOrder(string token, int numberHoursSearchOrder)
         {
             var apiUrl = ConfigurationManager.GetSection("API_Portal/Url") as NameValueCollection;
 

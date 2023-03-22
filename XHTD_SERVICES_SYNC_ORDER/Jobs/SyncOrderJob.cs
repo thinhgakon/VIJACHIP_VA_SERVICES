@@ -104,22 +104,18 @@ namespace XHTD_SERVICES_SYNC_ORDER.Jobs
 
             GetToken();
 
-            List<OrderItemResponse> websaleOrders = GetWebsaleOrder();
+            List<OrderItemResponse> websaleOrders = GetPortalOrder();
 
             if (websaleOrders == null || websaleOrders.Count == 0)
             {
                 return;
             }
 
-            bool isChanged = false;
-
             foreach (var websaleOrder in websaleOrders)
             {
                 // Không đồng bộ các đơn tại sông Thao
                 if (websaleOrder.shippointId != "13") { 
-                    bool isSynced = await SyncWebsaleOrderToDMS(websaleOrder);
-
-                    if (!isChanged) isChanged = isSynced;
+                    bool isSynced = await SyncPortalOrderToDMS(websaleOrder);
                 }
             }
         }
@@ -141,14 +137,14 @@ namespace XHTD_SERVICES_SYNC_ORDER.Jobs
             }
         }
 
-        public List<OrderItemResponse> GetWebsaleOrder()
+        public List<OrderItemResponse> GetPortalOrder()
         {
-            IRestResponse response = HttpRequest.GetWebsaleOrder(strToken, numberHoursSearchOrder);
+            IRestResponse response = HttpRequest.GetPortalOrder(strToken, numberHoursSearchOrder);
             var content = response.Content;
 
             if (response.StatusDescription.Equals("Unauthorized"))
             {
-                _syncOrderLogger.LogInfo("Unauthorized GetWebsaleOrder");
+                _syncOrderLogger.LogInfo("Unauthorized GetPortalOrder");
 
                 return null;
             }
@@ -158,7 +154,7 @@ namespace XHTD_SERVICES_SYNC_ORDER.Jobs
             return responseData.collection.OrderBy(x => x.id).ToList();
         }
 
-        public async Task<bool> SyncWebsaleOrderToDMS(OrderItemResponse websaleOrder)
+        public async Task<bool> SyncPortalOrderToDMS(OrderItemResponse websaleOrder)
         {
             bool isSynced = false;
 
