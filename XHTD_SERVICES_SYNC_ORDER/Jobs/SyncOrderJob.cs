@@ -161,11 +161,11 @@ namespace XHTD_SERVICES_SYNC_ORDER.Jobs
             {
                 isSynced = await _storeOrderOperatingRepository.CreateAsync(websaleOrder);
 
-                //if (isSynced)
-                //{
-                //    var vehicleCode = websaleOrder.vehicleCode.Replace("-", "").Replace("  ", "").Replace(" ", "").Replace("/", "").Replace(".", "").ToUpper();
-                //    await _vehicleRepository.CreateAsync(vehicleCode);
-                //}
+                if (isSynced)
+                {
+                    var vehicleCode = websaleOrder.VehicleId.Replace("-", "").Replace("  ", "").Replace(" ", "").Replace("/", "").Replace(".", "").ToUpper();
+                    await _vehicleRepository.CreateAsync(vehicleCode);
+                }
             }
             else if (stateId == (int)OrderState.DA_HUY_DON)
             {
