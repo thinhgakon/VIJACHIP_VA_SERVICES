@@ -34,6 +34,7 @@ namespace XHTD_SERVICES.Data.Repositories
                         Vehicle = vehicleCode,
                         DriverName = websaleOrder.DriverName,
                         Step = (int)OrderStep.CHUA_NHAN_DON,
+                        Type = websaleOrder.Type,
                         IsVoiced = false,
                         LogProcessOrder = $@"#Sync Tạo đơn lúc {syncTime}",
                         LogJobAttach = $@"#Sync Tạo đơn lúc {syncTime}",

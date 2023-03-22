@@ -73,6 +73,12 @@
     <Compile Include="Entities\tblAccountGroupFunction.cs">
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\tblBill.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tblBillDetail.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\tblCallToTrough.cs">
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
@@ -89,6 +95,12 @@
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\tblConfigApp.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tblContract.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tblContractItem.cs">
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\tblDevice.cs">
@@ -109,6 +121,9 @@
     <Compile Include="Entities\tblFunction.cs">
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\tblItem.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\tblLongVehicle.cs">
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
@@ -121,7 +136,28 @@
     <Compile Include="Entities\tblNotification.cs">
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\tblPartner.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tblPartnersCareInfo.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tblPartnersCarePlan.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tblPartnersGroup.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\tblPrintConfig.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tblProductionPlan.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tblProductionPlanOrder.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tblProductionPlanProduct.cs">
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\tblRfid.cs">
@@ -131,6 +167,9 @@
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\tblScaleOperating.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tblStock.cs">
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\tblStoreOrderLocation.cs">
@@ -158,6 +197,9 @@
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\tblVehicle.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tblZone.cs">
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\XHTDModel.Context.cs">
