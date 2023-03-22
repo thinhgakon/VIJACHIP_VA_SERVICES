@@ -28,6 +28,7 @@ namespace XHTD_SERVICES.Data.Repositories
                     var newOrderOperating = new tblStoreOrderOperating
                     {
                         OrderId = websaleOrder.Id,
+                        PartnerId = websaleOrder.DistributorId.ToString(),
                         NameDistributor = websaleOrder.DistributorName,
                         OrderDate = websaleOrder.OrderDate,
                         NameProduct = websaleOrder.ItemName,
