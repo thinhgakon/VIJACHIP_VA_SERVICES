@@ -10,34 +10,37 @@ namespace XHTD_SERVICES.Data.Models.Values
 {
     public enum OrderStep
     {
-        [Display(Name = "Chưa nhận đơn")]
-        CHUA_NHAN_DON = 0,
+        [Display(Name = "Chưa xác nhận")]
+        CHUA_XAC_NHAN = 0,
+
+        [Display(Name = "Đã xác nhận")]
+        DA_XAC_NHAN = 1,
 
         [Display(Name = "Đã nhận đơn")]
-        DA_NHAN_DON = 1,
+        DA_NHAN_DON = 2,
 
         [Display(Name = "Đã vào cổng")]
-        DA_VAO_CONG = 2,
+        DA_VAO_CONG = 3,
 
         [Display(Name = "Đã cân vào")]
-        DA_CAN_VAO = 3,
+        DA_CAN_VAO = 4,
 
         [Display(Name = "Đang gọi xe")]
-        DANG_GOI_XE = 4,
+        DANG_GOI_XE = 5,
 
         [Display(Name = "Đang lấy hàng")]
-        DANG_LAY_HANG = 5,
+        DANG_LAY_HANG = 6,
 
         [Display(Name = "Đã lấy hàng")]
-        DA_LAY_HANG = 6,
+        DA_LAY_HANG = 7,
 
         [Display(Name = "Đã cân ra")]
-        DA_CAN_RA = 7,
+        DA_CAN_RA = 8,
 
         [Display(Name = "Đã hoàn thành")]
-        DA_HOAN_THANH = 8,
+        DA_HOAN_THANH = 9,
 
         [Display(Name = "Đã giao hàng")]
-        DA_GIAO_HANG = 9,
+        DA_GIAO_HANG = 10,
     }
 }

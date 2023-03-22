@@ -33,7 +33,7 @@ namespace XHTD_SERVICES.Data.Repositories
                         NameProduct = websaleOrder.ItemName,
                         Vehicle = vehicleCode,
                         DriverName = websaleOrder.DriverName,
-                        Step = (int)OrderStep.CHUA_NHAN_DON,
+                        Step = (int)OrderStep.CHUA_XAC_NHAN,
                         Type = websaleOrder.Type,
                         IsVoiced = false,
                         LogProcessOrder = $@"#Sync Tạo đơn lúc {syncTime}",
