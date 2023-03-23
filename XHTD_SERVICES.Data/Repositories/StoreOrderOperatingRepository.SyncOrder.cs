@@ -23,6 +23,10 @@ namespace XHTD_SERVICES.Data.Repositories
             {
                 var vehicleCode = websaleOrder.VehicleId.Replace("-", "").Replace("  ", "").Replace(" ", "").Replace("/", "").Replace(".", "").ToUpper();
 
+                var itemCode = websaleOrder.ItemCode;
+                var productItem = _appDbContext.tblItems.FirstOrDefault(x => x.Code == itemCode);
+                var productId = productItem?.ItemId ?? null;
+
                 if (!CheckExist(websaleOrder.Id))
                 {
                     var newOrderOperating = new tblStoreOrderOperating
@@ -32,6 +36,7 @@ namespace XHTD_SERVICES.Data.Repositories
                         NameDistributor = websaleOrder.DistributorName,
                         OrderDate = websaleOrder.OrderDate,
                         NameProduct = websaleOrder.ItemName,
+                        ItemId = productId,
                         SumNumber = (decimal)websaleOrder.NumberOrder,
                         Vehicle = vehicleCode,
                         DriverName = websaleOrder.DriverName,
