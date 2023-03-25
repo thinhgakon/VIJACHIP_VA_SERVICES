@@ -37,6 +37,7 @@ namespace XHTD_SERVICES.Data.Repositories
                         OrderDate = websaleOrder.OrderDate,
                         NameProduct = websaleOrder.ItemName,
                         ItemId = productId,
+                        ItemUnitName = websaleOrder.ItemUnitName,
                         SumNumber = (decimal)websaleOrder.NumberOrder,
                         Vehicle = vehicleCode,
                         DriverName = websaleOrder.DriverName,
