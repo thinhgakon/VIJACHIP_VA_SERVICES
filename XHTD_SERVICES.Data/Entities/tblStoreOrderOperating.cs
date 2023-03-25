@@ -19,6 +19,7 @@ namespace XHTD_SERVICES.Data.Entities
         public string DriverName { get; set; }
         public string NameDistributor { get; set; }
         public Nullable<double> ItemId { get; set; }
+        public string ItemUnitName { get; set; }
         public string NameProduct { get; set; }
         public string CatId { get; set; }
         public Nullable<decimal> SumNumber { get; set; }
@@ -110,5 +111,6 @@ namespace XHTD_SERVICES.Data.Entities
         public string UpdateBy { get; set; }
         public Nullable<int> Type { get; set; }
         public string PartnerId { get; set; }
+        public string Note { get; set; }
     }
 }

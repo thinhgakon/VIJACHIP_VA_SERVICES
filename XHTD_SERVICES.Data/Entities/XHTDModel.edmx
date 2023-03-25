@@ -428,7 +428,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblContractItems' does not have 
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="varchar" MaxLength="32" />
           <Property Name="UpdatedDate" Type="datetime" />
-          <Property Name="ZoneCode" Type="varchar" MaxLength="50" />
+          <Property Name="ZoneId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblPartnersCareInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -490,7 +490,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblPartnersCareInfo' does not ha
         </EntityType>
         <EntityType Name="tblProductionPlan">
           <Key>
-            <PropertyRef Name="Number" />
+            <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RefNumber" Type="nvarchar" MaxLength="50" />
@@ -513,20 +513,23 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblPartnersCareInfo' does not ha
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductionPlanId" Type="int" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="ZoneId" Type="int" />
+          <Property Name="ZoneName" Type="nvarchar" MaxLength="500" />
           <Property Name="PartnerAccount" Type="nvarchar" MaxLength="50" />
-          <Property Name="ZoneCode" Type="varchar" MaxLength="50" />
+          <Property Name="PartnerName" Type="nvarchar" MaxLength="255" />
           <Property Name="ItemCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="255" />
           <Property Name="Number" Type="float" />
           <Property Name="Note" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsDeleted" Type="bit" />
           <Property Name="CreateDay" Type="datetime" />
           <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
           <Property Name="UpdateDay" Type="datetime" />
           <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="ProductionPlanId" Type="int" />
-          <Property Name="PartnerName" Type="nvarchar" MaxLength="255" />
-          <Property Name="ZoneName" Type="nvarchar" MaxLength="500" />
-          <Property Name="ItemName" Type="nvarchar" MaxLength="255" />
-          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="IsBackupPlan" Type="bit" />
+          <Property Name="ItemId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblProductionPlanProducts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -639,6 +642,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblProductionPlanProducts' does 
           <Property Name="DriverName" Type="nvarchar" MaxLength="250" />
           <Property Name="NameDistributor" Type="nvarchar" MaxLength="500" />
           <Property Name="ItemId" Type="float" />
+          <Property Name="ItemUnitName" Type="nvarchar" MaxLength="50" />
           <Property Name="NameProduct" Type="nvarchar" MaxLength="250" />
           <Property Name="CatId" Type="nvarchar" MaxLength="50" />
           <Property Name="SumNumber" Type="decimal" Precision="18" Scale="1" />
@@ -730,6 +734,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblProductionPlanProducts' does 
           <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
           <Property Name="Type" Type="int" />
           <Property Name="PartnerId" Type="nvarchar" MaxLength="255" />
+          <Property Name="Note" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tblStoreOrderOperatingPriority">
           <Key>
@@ -1375,7 +1380,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ZoneCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZoneId" Type="Int32" />
         </EntityType>
         <EntityType Name="tblPartnersCarePlan">
           <Key>
@@ -1418,7 +1423,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
         </EntityType>
         <EntityType Name="tblProductionPlan">
           <Key>
-            <PropertyRef Name="Number" />
+            <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RefNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1441,20 +1446,23 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductionPlanId" Type="Int32" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
+          <Property Name="ZoneId" Type="Int32" />
+          <Property Name="ZoneName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="PartnerAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ZoneCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PartnerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Number" Type="Double" />
           <Property Name="Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="CreateDay" Type="DateTime" Precision="3" />
           <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdateDay" Type="DateTime" Precision="3" />
           <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ProductionPlanId" Type="Int32" />
-          <Property Name="PartnerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="ZoneName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="ItemName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="IsBackupPlan" Type="Boolean" />
+          <Property Name="ItemId" Type="Int32" />
         </EntityType>
         <EntityType Name="tblRfid">
           <Key>
@@ -1543,6 +1551,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <Property Name="DriverName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="NameDistributor" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ItemId" Type="Double" />
+          <Property Name="ItemUnitName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NameProduct" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="CatId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SumNumber" Type="Decimal" Precision="18" Scale="1" />
@@ -1634,6 +1643,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="Int32" />
           <Property Name="PartnerId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblStoreOrderOperatingPriority">
           <Key>
@@ -2295,7 +2305,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="ZoneCode" ColumnName="ZoneCode" />
+                <ScalarProperty Name="ZoneId" ColumnName="ZoneId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2366,20 +2376,23 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
             <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblProductionPlanOrder">
               <MappingFragment StoreEntitySet="tblProductionPlanOrder">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductionPlanId" ColumnName="ProductionPlanId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="ZoneId" ColumnName="ZoneId" />
+                <ScalarProperty Name="ZoneName" ColumnName="ZoneName" />
                 <ScalarProperty Name="PartnerAccount" ColumnName="PartnerAccount" />
-                <ScalarProperty Name="ZoneCode" ColumnName="ZoneCode" />
+                <ScalarProperty Name="PartnerName" ColumnName="PartnerName" />
                 <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
                 <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
                 <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
                 <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
-                <ScalarProperty Name="ProductionPlanId" ColumnName="ProductionPlanId" />
-                <ScalarProperty Name="PartnerName" ColumnName="PartnerName" />
-                <ScalarProperty Name="ZoneName" ColumnName="ZoneName" />
-                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsBackupPlan" ColumnName="IsBackupPlan" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2474,6 +2487,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
                 <ScalarProperty Name="DriverName" ColumnName="DriverName" />
                 <ScalarProperty Name="NameDistributor" ColumnName="NameDistributor" />
                 <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="ItemUnitName" ColumnName="ItemUnitName" />
                 <ScalarProperty Name="NameProduct" ColumnName="NameProduct" />
                 <ScalarProperty Name="CatId" ColumnName="CatId" />
                 <ScalarProperty Name="SumNumber" ColumnName="SumNumber" />
@@ -2565,6 +2579,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
                 <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

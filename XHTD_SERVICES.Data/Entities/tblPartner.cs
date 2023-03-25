@@ -36,6 +36,6 @@ namespace XHTD_SERVICES.Data.Entities
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
-        public string ZoneCode { get; set; }
+        public Nullable<int> ZoneId { get; set; }
     }
 }
