@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="XHTD_SERVICES.Data.Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="XHTD_SERVICES.Data.Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblAccount">
           <Key>
             <PropertyRef Name="UserName" />
@@ -735,6 +735,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblProductionPlanProducts' does 
           <Property Name="Type" Type="int" />
           <Property Name="PartnerId" Type="nvarchar" MaxLength="255" />
           <Property Name="Note" Type="nvarchar" MaxLength="255" />
+          <Property Name="RealRequireNumber" Type="decimal" Precision="18" Scale="1" />
         </EntityType>
         <EntityType Name="tblStoreOrderOperatingPriority">
           <Key>
@@ -1009,8 +1010,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
     FROM [dbo].[tblStoreOrderOperatingVoice] AS [tblStoreOrderOperatingVoice]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="XHTD_SERVICES.Data.Entities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1644,6 +1644,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <Property Name="Type" Type="Int32" />
           <Property Name="PartnerId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RealRequireNumber" Type="Decimal" Precision="18" Scale="1" />
         </EntityType>
         <EntityType Name="tblStoreOrderOperatingPriority">
           <Key>
@@ -2482,6 +2483,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <EntitySetMapping Name="tblStoreOrderOperatings">
             <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblStoreOrderOperating">
               <MappingFragment StoreEntitySet="tblStoreOrderOperating">
+                <ScalarProperty Name="RealRequireNumber" ColumnName="RealRequireNumber" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Vehicle" ColumnName="Vehicle" />
                 <ScalarProperty Name="DriverName" ColumnName="DriverName" />

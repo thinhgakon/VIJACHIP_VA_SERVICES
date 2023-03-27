@@ -46,6 +46,7 @@ namespace XHTD_SERVICES.Data.Repositories
                         IsVoiced = false,
                         LogProcessOrder = $@"#Sync Tạo đơn lúc {syncTime}",
                         LogJobAttach = $@"#Sync Tạo đơn lúc {syncTime}",
+                        RealRequireNumber = (decimal)websaleOrder.NumberOrder
                     };
 
                     _appDbContext.tblStoreOrderOperatings.Add(newOrderOperating);
