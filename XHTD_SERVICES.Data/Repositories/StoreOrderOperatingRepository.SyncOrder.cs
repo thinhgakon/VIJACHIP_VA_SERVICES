@@ -27,7 +27,7 @@ namespace XHTD_SERVICES.Data.Repositories
                 var productItem = _appDbContext.tblItems.FirstOrDefault(x => x.Code == itemCode);
                 var productId = productItem?.ItemId ?? null;
 
-                if (!CheckExist(websaleOrder.Id))
+                if (CheckExist(websaleOrder.Id))
                 {
                     var newOrderOperating = new tblStoreOrderOperating
                     {
