@@ -11,5 +11,7 @@ namespace XHTD_SERVICES.Helper.Models.Request
         public string grant_type { get; set; }
         public string username { get; set; }
         public string password { get; set; }
+        public int environtment { get; set; }
+
     }
 }

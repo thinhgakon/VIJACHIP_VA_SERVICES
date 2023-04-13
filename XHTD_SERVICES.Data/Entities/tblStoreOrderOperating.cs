@@ -113,5 +113,6 @@ namespace XHTD_SERVICES.Data.Entities
         public string PartnerId { get; set; }
         public string Note { get; set; }
         public Nullable<decimal> RealRequireNumber { get; set; }
+        public string ItemCode { get; set; }
     }
 }
