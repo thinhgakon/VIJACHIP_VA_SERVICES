@@ -12,16 +12,12 @@ namespace XHTD_SERVICES.Data.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class tblContractItem
+    public partial class sysdiagram
     {
-        public int Id { get; set; }
-        public int ContractId { get; set; }
-        public string ItemCode { get; set; }
-        public Nullable<double> ItemQuantity { get; set; }
-        public string ItemInfo { get; set; }
-        public Nullable<System.DateTime> CreateDay { get; set; }
-        public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> UpdatedDate { get; set; }
-        public string UpdatedBy { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

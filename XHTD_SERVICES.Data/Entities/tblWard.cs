@@ -12,16 +12,17 @@ namespace XHTD_SERVICES.Data.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class tblContractItem
+    public partial class tblWard
     {
-        public int Id { get; set; }
-        public int ContractId { get; set; }
-        public string ItemCode { get; set; }
-        public Nullable<double> ItemQuantity { get; set; }
-        public string ItemInfo { get; set; }
-        public Nullable<System.DateTime> CreateDay { get; set; }
-        public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> UpdatedDate { get; set; }
-        public string UpdatedBy { get; set; }
+        public string Name { get; set; }
+        public int Code { get; set; }
+        public string DivisionType { get; set; }
+        public string CodeName { get; set; }
+        public Nullable<int> DistrictCode { get; set; }
+    
+        public virtual tblDistrict tblDistrict { get; set; }
+        public virtual tblDistrict tblDistrict1 { get; set; }
+        public virtual tblDistrict tblDistrict2 { get; set; }
+        public virtual tblDistrict tblDistrict3 { get; set; }
     }
 }

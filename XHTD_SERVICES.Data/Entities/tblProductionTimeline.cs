@@ -12,18 +12,19 @@ namespace XHTD_SERVICES.Data.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class tblProductionPlan
+    public partial class tblProductionTimeline
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblProductionPlan()
+        public tblProductionTimeline()
         {
-            this.tblProductionProposals = new HashSet<tblProductionProposal>();
+            this.tblProductionTimelineWeeklies = new HashSet<tblProductionTimelineWeekly>();
         }
     
         public int Id { get; set; }
         public string RefNumber { get; set; }
         public string Title { get; set; }
         public string Number { get; set; }
+        public string NumberOfProductionPlan { get; set; }
         public Nullable<System.DateTime> DayFrom { get; set; }
         public Nullable<System.DateTime> DayTo { get; set; }
         public string UnitName { get; set; }
@@ -37,6 +38,6 @@ namespace XHTD_SERVICES.Data.Entities
         public int Step { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblProductionProposal> tblProductionProposals { get; set; }
+        public virtual ICollection<tblProductionTimelineWeekly> tblProductionTimelineWeeklies { get; set; }
     }
 }

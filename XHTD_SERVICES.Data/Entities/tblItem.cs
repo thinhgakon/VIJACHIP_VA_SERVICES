@@ -28,5 +28,6 @@ namespace XHTD_SERVICES.Data.Entities
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
         public Nullable<bool> IsFinishedProduct { get; set; }
+        public int Type { get; set; }
     }
 }

@@ -55,9 +55,7 @@ namespace XHTD_SERVICES.Data.Entities
         public virtual DbSet<tblRfid> tblRfids { get; set; }
         public virtual DbSet<tblRfidSign> tblRfidSigns { get; set; }
         public virtual DbSet<tblScaleOperating> tblScaleOperatings { get; set; }
-        public virtual DbSet<tblStock> tblStocks { get; set; }
         public virtual DbSet<tblStoreOrderLocation> tblStoreOrderLocations { get; set; }
-        public virtual DbSet<tblStoreOrderOperating> tblStoreOrderOperatings { get; set; }
         public virtual DbSet<tblStoreOrderOperatingPriority> tblStoreOrderOperatingPriorities { get; set; }
         public virtual DbSet<tblSystemParameter> tblSystemParameters { get; set; }
         public virtual DbSet<tblTrough> tblTroughs { get; set; }
@@ -66,10 +64,23 @@ namespace XHTD_SERVICES.Data.Entities
         public virtual DbSet<tblVehicle> tblVehicles { get; set; }
         public virtual DbSet<tblZone> tblZones { get; set; }
         public virtual DbSet<tblCompany> tblCompanies { get; set; }
-        public virtual DbSet<tblContract> tblContracts { get; set; }
-        public virtual DbSet<tblContractItem> tblContractItems { get; set; }
         public virtual DbSet<tblPartnersCareInfo> tblPartnersCareInfoes { get; set; }
         public virtual DbSet<tblProductionPlanProduct> tblProductionPlanProducts { get; set; }
         public virtual DbSet<tblStoreOrderOperatingVoice> tblStoreOrderOperatingVoices { get; set; }
+        public virtual DbSet<tblStoreOrderOperating> tblStoreOrderOperatings { get; set; }
+        public virtual DbSet<C__EFMigrationsHistory> C__EFMigrationsHistory { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<tblContractItem> tblContractItems { get; set; }
+        public virtual DbSet<tblDistrict> tblDistricts { get; set; }
+        public virtual DbSet<tblItemsFormula> tblItemsFormulas { get; set; }
+        public virtual DbSet<tblProductionProposal> tblProductionProposals { get; set; }
+        public virtual DbSet<tblProductionProposalDetail> tblProductionProposalDetails { get; set; }
+        public virtual DbSet<tblProductionTimeline> tblProductionTimelines { get; set; }
+        public virtual DbSet<tblProductionTimelineWeekly> tblProductionTimelineWeeklies { get; set; }
+        public virtual DbSet<tblProvine> tblProvines { get; set; }
+        public virtual DbSet<tblWard> tblWards { get; set; }
+        public virtual DbSet<tblItemsFormulaDetail> tblItemsFormulaDetails { get; set; }
+        public virtual DbSet<tblContract> tblContracts { get; set; }
+        public virtual DbSet<tblStock> tblStocks { get; set; }
     }
 }

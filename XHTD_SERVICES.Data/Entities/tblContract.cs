@@ -21,12 +21,13 @@ namespace XHTD_SERVICES.Data.Entities
         public string Title { get; set; }
         public Nullable<System.DateTime> SignDay { get; set; }
         public Nullable<System.DateTime> FinishDay { get; set; }
-        public string AttachFile { get; set; }
+        public byte[] AttachFile { get; set; }
         public Nullable<double> Quantity { get; set; }
         public Nullable<double> TotalMoney { get; set; }
         public Nullable<System.DateTime> CreateDay { get; set; }
         public string CreateBy { get; set; }
         public Nullable<System.DateTime> UpdateDay { get; set; }
         public string UpdateBy { get; set; }
+        public string FileName { get; set; }
     }
 }
