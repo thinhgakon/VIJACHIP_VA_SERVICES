@@ -21,8 +21,8 @@ namespace XHTD_SERVICES.Data.Models.Response
         public double NumberOrder { get; set; }
         public double? NumberRelease { get; set; }
         public string VehicleId { get; set; } = string.Empty;
-        public double VehicleEmptyWeight { get; set; }
-        public double VehicleFullWeight { get; set; }
+        public double? VehicleEmptyWeight { get; set; }
+        public double? VehicleFullWeight { get; set; }
         public Guid? DriverId { get; set; }
         public string DriverAccount { get; set; } = string.Empty;
         public string DriverName { get; set; } = string.Empty;
