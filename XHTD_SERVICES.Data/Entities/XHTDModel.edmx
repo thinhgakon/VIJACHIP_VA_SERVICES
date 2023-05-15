@@ -4,7 +4,24 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="XHTD_SERVICES.Data.Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="XHTD_SERVICES.Data.Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__EFMigrationsHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="tblAccount">
           <Key>
             <PropertyRef Name="UserName" />
@@ -58,6 +75,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DeliveryCode" Type="nvarchar" MaxLength="50" />
           <Property Name="TypeId" Type="int" />
           <Property Name="PartnerId" Type="nvarchar" MaxLength="255" />
           <Property Name="StockCode1" Type="nvarchar" MaxLength="50" />
@@ -192,8 +210,6 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblCompany' does not have a prim
           <Property Name="UpdateDay" Type="datetime" />
           <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblContract' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblContract">
           <Key>
             <PropertyRef Name="Id" />
@@ -205,22 +221,21 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblContract' does not have a pri
           <Property Name="Title" Type="nvarchar" MaxLength="500" />
           <Property Name="SignDay" Type="datetime" />
           <Property Name="FinishDay" Type="datetime" />
-          <Property Name="AttachFile" Type="nvarchar" MaxLength="500" />
+          <Property Name="AttachFile" Type="varbinary(max)" />
           <Property Name="Quantity" Type="float" />
           <Property Name="TotalMoney" Type="float" />
           <Property Name="CreateDay" Type="datetime" />
           <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
           <Property Name="UpdateDay" Type="datetime" />
           <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblContractItems' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblContractItems">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ContractNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContractId" Type="int" Nullable="false" />
           <Property Name="ItemCode" Type="nvarchar" MaxLength="50" />
           <Property Name="ItemQuantity" Type="float" />
           <Property Name="ItemInfo" Type="nvarchar" MaxLength="500" />
@@ -283,6 +298,16 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblContractItems' does not have 
           <Property Name="LogHistory" Type="nvarchar(max)" />
           <Property Name="Flag" Type="int" />
         </EntityType>
+        <EntityType Name="tblDistrict">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="512" />
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="DivisionType" Type="nvarchar" MaxLength="512" />
+          <Property Name="CodeName" Type="varchar" MaxLength="512" />
+          <Property Name="ProvineCode" Type="int" />
+        </EntityType>
         <EntityType Name="tblDriver">
           <Key>
             <PropertyRef Name="Id" />
@@ -343,12 +368,50 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblContractItems' does not have 
           <Property Name="Price" Type="float" />
           <Property Name="Note" Type="nvarchar(max)" />
           <Property Name="State" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="IsFinishedProduct" Type="bit" />
+          <Property Name="Type" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="varchar" MaxLength="32" />
           <Property Name="UpdatedDate" Type="datetime" />
-          <Property Name="IsDeleted" Type="bit" />
-          <Property Name="IsFinishedProduct" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblItemsFormula">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RefNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RecoveryRating" Type="float" />
+          <Property Name="Note" Type="nvarchar" MaxLength="250" />
+          <Property Name="State" Type="int" Nullable="false" />
+          <Property Name="CreateDay" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDay" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ItemId" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblItemsFormulaDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblItemsFormulaDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ItemCode" />
+            <PropertyRef Name="ItemRating" />
+            <PropertyRef Name="ItemId" />
+            <PropertyRef Name="ItemFormulaId" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItemRating" Type="float" Nullable="false" />
+          <Property Name="CreateDay" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDay" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="ItemFormulaId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tblLongVehicle">
           <Key>
@@ -417,6 +480,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblContractItems' does not have 
           <Property Name="PhoneNumber" Type="varchar" MaxLength="15" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Manager" Type="varchar" MaxLength="255" />
+          <Property Name="ProviderType" Type="int" />
           <Property Name="SectorId" Type="int" />
           <Property Name="ProvinceId" Type="int" />
           <Property Name="DistrictId" Type="int" />
@@ -555,6 +619,89 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblProductionPlanProducts' does 
           <Property Name="BalancerDate" Type="datetime" />
           <Property Name="ItemName" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="tblProductionProposal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="155" />
+          <Property Name="SubTitle" Type="nvarchar" MaxLength="255" />
+          <Property Name="ProductionPlanId" Type="int" />
+          <Property Name="CreateDay" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDay" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Step" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblProductionProposalDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemId" Type="int" />
+          <Property Name="RecommendedNumberAB" Type="float" />
+          <Property Name="ChangedNumberAB" Type="float" />
+          <Property Name="RecommendedNumberCD" Type="float" />
+          <Property Name="ChangedNumberCD" Type="float" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="CreateDay" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDay" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductionProposalId" Type="int" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="255" />
+          <Property Name="ItemUnitName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblProductionTimeline">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RefNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Title" Type="nvarchar" MaxLength="500" />
+          <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NumberOfProductionPlan" Type="nvarchar" MaxLength="50" />
+          <Property Name="DayFrom" Type="datetime" />
+          <Property Name="DayTo" Type="datetime" />
+          <Property Name="UnitName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PlanCreationDate" Type="datetime" />
+          <Property Name="Note" Type="nvarchar" MaxLength="1500" />
+          <Property Name="CreateDay" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDay" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Step" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblProductionTimelineWeekly">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductionTimelineID" Type="int" Nullable="false" />
+          <Property Name="DateOfManufacture" Type="datetime" />
+          <Property Name="Slot" Type="int" />
+          <Property Name="Stage" Type="varchar" MaxLength="10" />
+          <Property Name="ItemId" Type="int" />
+          <Property Name="ItemCode" Type="varchar" MaxLength="50" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Number" Type="int" />
+          <Property Name="CreateDay" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDay" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblProvine">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="512" />
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="DivisionType" Type="nvarchar" MaxLength="512" />
+          <Property Name="CodeName" Type="varchar" MaxLength="512" />
+          <Property Name="PhoneCode" Type="int" />
+        </EntityType>
         <EntityType Name="tblRfid">
           <Key>
             <PropertyRef Name="Code" />
@@ -604,7 +751,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblProductionPlanProducts' does 
         </EntityType>
         <EntityType Name="tblStock">
           <Key>
-            <PropertyRef Name="Code" />
+            <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -735,6 +882,11 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblProductionPlanProducts' does 
           <Property Name="Type" Type="int" />
           <Property Name="PartnerId" Type="nvarchar" MaxLength="255" />
           <Property Name="Note" Type="nvarchar" MaxLength="255" />
+          <Property Name="RealRequireNumber" Type="decimal" Precision="18" Scale="1" />
+          <Property Name="CodeExport" Type="varchar" MaxLength="50" />
+          <Property Name="ReasonExport" Type="nvarchar" MaxLength="255" />
+          <Property Name="NoteExport" Type="nvarchar" MaxLength="255" />
+          <Property Name="ItemCode" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblStoreOrderOperatingPriority">
           <Key>
@@ -855,6 +1007,16 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <Property Name="UpdateDay" Type="datetime" />
           <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="tblWard">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="512" />
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="DivisionType" Type="nvarchar" MaxLength="512" />
+          <Property Name="CodeName" Type="varchar" MaxLength="512" />
+          <Property Name="DistrictCode" Type="int" />
+        </EntityType>
         <EntityType Name="tblZones">
           <Key>
             <PropertyRef Name="Code" />
@@ -868,7 +1030,117 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <Property Name="UpdateDay" Type="datetime" />
           <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK__tblDistri__Provi__65E11278">
+          <End Role="tblProvine" Type="Self.tblProvine" Multiplicity="0..1" />
+          <End Role="tblDistrict" Type="Self.tblDistrict" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProvine">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="tblDistrict">
+              <PropertyRef Name="ProvineCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblDistri__Provi__66D536B1">
+          <End Role="tblProvine" Type="Self.tblProvine" Multiplicity="0..1" />
+          <End Role="tblDistrict" Type="Self.tblDistrict" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProvine">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="tblDistrict">
+              <PropertyRef Name="ProvineCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProduc__Produ__33208881">
+          <End Role="tblProductionTimeline" Type="Self.tblProductionTimeline" Multiplicity="1" />
+          <End Role="tblProductionTimelineWeekly" Type="Self.tblProductionTimelineWeekly" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProductionTimeline">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblProductionTimelineWeekly">
+              <PropertyRef Name="ProductionTimelineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProduc__Produ__35FCF52C">
+          <End Role="tblProductionPlan" Type="Self.tblProductionPlan" Multiplicity="0..1" />
+          <End Role="tblProductionProposal" Type="Self.tblProductionProposal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProductionPlan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblProductionProposal">
+              <PropertyRef Name="ProductionPlanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProduc__Produ__4BEC364B">
+          <End Role="tblProductionProposal" Type="Self.tblProductionProposal" Multiplicity="0..1" />
+          <End Role="tblProductionProposalDetail" Type="Self.tblProductionProposalDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProductionProposal">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblProductionProposalDetail">
+              <PropertyRef Name="ProductionProposalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWard__Distric__62108194">
+          <End Role="tblDistrict" Type="Self.tblDistrict" Multiplicity="0..1" />
+          <End Role="tblWard" Type="Self.tblWard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDistrict">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="tblWard">
+              <PropertyRef Name="DistrictCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWard__Distric__6304A5CD">
+          <End Role="tblDistrict" Type="Self.tblDistrict" Multiplicity="0..1" />
+          <End Role="tblWard" Type="Self.tblWard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDistrict">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="tblWard">
+              <PropertyRef Name="DistrictCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWard__Distric__67C95AEA">
+          <End Role="tblDistrict" Type="Self.tblDistrict" Multiplicity="0..1" />
+          <End Role="tblWard" Type="Self.tblWard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDistrict">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="tblWard">
+              <PropertyRef Name="DistrictCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWard__Distric__68BD7F23">
+          <End Role="tblDistrict" Type="Self.tblDistrict" Multiplicity="0..1" />
+          <End Role="tblWard" Type="Self.tblWard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDistrict">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="tblWard">
+              <PropertyRef Name="DistrictCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="XHTD_SERVICESDataEntitiesStoreContainer">
+          <EntitySet Name="__EFMigrationsHistory" EntityType="Self.__EFMigrationsHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAccount" EntityType="Self.tblAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAccountGroup" EntityType="Self.tblAccountGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAccountGroupFunction" EntityType="Self.tblAccountGroupFunction" Schema="dbo" store:Type="Tables" />
@@ -879,13 +1151,17 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <EntitySet Name="tblCategoriesDevices" EntityType="Self.tblCategoriesDevices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCategoriesDevicesLog" EntityType="Self.tblCategoriesDevicesLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblConfigApp" EntityType="Self.tblConfigApp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblContract" EntityType="Self.tblContract" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblContractItems" EntityType="Self.tblContractItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblDevice" EntityType="Self.tblDevice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblDeviceGroup" EntityType="Self.tblDeviceGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblDeviceOperating" EntityType="Self.tblDeviceOperating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDistrict" EntityType="Self.tblDistrict" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblDriver" EntityType="Self.tblDriver" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblDriverVehicle" EntityType="Self.tblDriverVehicle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFunction" EntityType="Self.tblFunction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblItems" EntityType="Self.tblItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblItemsFormula" EntityType="Self.tblItemsFormula" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblLongVehicle" EntityType="Self.tblLongVehicle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblMachine" EntityType="Self.tblMachine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblMachineTypeProduct" EntityType="Self.tblMachineTypeProduct" Schema="dbo" store:Type="Tables" />
@@ -896,6 +1172,11 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <EntitySet Name="tblPrintConfig" EntityType="Self.tblPrintConfig" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProductionPlan" EntityType="Self.tblProductionPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProductionPlanOrder" EntityType="Self.tblProductionPlanOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProductionProposal" EntityType="Self.tblProductionProposal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProductionProposalDetail" EntityType="Self.tblProductionProposalDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProductionTimeline" EntityType="Self.tblProductionTimeline" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProductionTimelineWeekly" EntityType="Self.tblProductionTimelineWeekly" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProvine" EntityType="Self.tblProvine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRfid" EntityType="Self.tblRfid" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRfidSign" EntityType="Self.tblRfidSign" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblScaleOperating" EntityType="Self.tblScaleOperating" Schema="dbo" store:Type="Tables" />
@@ -908,6 +1189,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <EntitySet Name="tblTroughTypeProduct" EntityType="Self.tblTroughTypeProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblTypeProduct" EntityType="Self.tblTypeProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVehicle" EntityType="Self.tblVehicle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblWard" EntityType="Self.tblWard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblZones" EntityType="Self.tblZones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCompany" EntityType="Self.tblCompany" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -926,36 +1208,18 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
     [tblCompany].[UpdateBy] AS [UpdateBy]
     FROM [dbo].[tblCompany] AS [tblCompany]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="tblContract" EntityType="Self.tblContract" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="tblItemsFormulaDetail" EntityType="Self.tblItemsFormulaDetail" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [tblContract].[Id] AS [Id], 
-    [tblContract].[PartnerId] AS [PartnerId], 
-    [tblContract].[TypeId] AS [TypeId], 
-    [tblContract].[Number] AS [Number], 
-    [tblContract].[Title] AS [Title], 
-    [tblContract].[SignDay] AS [SignDay], 
-    [tblContract].[FinishDay] AS [FinishDay], 
-    [tblContract].[AttachFile] AS [AttachFile], 
-    [tblContract].[Quantity] AS [Quantity], 
-    [tblContract].[TotalMoney] AS [TotalMoney], 
-    [tblContract].[CreateDay] AS [CreateDay], 
-    [tblContract].[CreateBy] AS [CreateBy], 
-    [tblContract].[UpdateDay] AS [UpdateDay], 
-    [tblContract].[UpdateBy] AS [UpdateBy]
-    FROM [dbo].[tblContract] AS [tblContract]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="tblContractItems" EntityType="Self.tblContractItems" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tblContractItems].[Id] AS [Id], 
-    [tblContractItems].[ContractNumber] AS [ContractNumber], 
-    [tblContractItems].[ItemCode] AS [ItemCode], 
-    [tblContractItems].[ItemQuantity] AS [ItemQuantity], 
-    [tblContractItems].[ItemInfo] AS [ItemInfo], 
-    [tblContractItems].[CreateDay] AS [CreateDay], 
-    [tblContractItems].[CreatedBy] AS [CreatedBy], 
-    [tblContractItems].[UpdatedDate] AS [UpdatedDate], 
-    [tblContractItems].[UpdatedBy] AS [UpdatedBy]
-    FROM [dbo].[tblContractItems] AS [tblContractItems]</DefiningQuery>
+    [tblItemsFormulaDetail].[Id] AS [Id], 
+    [tblItemsFormulaDetail].[ItemCode] AS [ItemCode], 
+    [tblItemsFormulaDetail].[ItemRating] AS [ItemRating], 
+    [tblItemsFormulaDetail].[CreateDay] AS [CreateDay], 
+    [tblItemsFormulaDetail].[CreateBy] AS [CreateBy], 
+    [tblItemsFormulaDetail].[UpdateDay] AS [UpdateDay], 
+    [tblItemsFormulaDetail].[UpdateBy] AS [UpdateBy], 
+    [tblItemsFormulaDetail].[ItemId] AS [ItemId], 
+    [tblItemsFormulaDetail].[ItemFormulaId] AS [ItemFormulaId]
+    FROM [dbo].[tblItemsFormulaDetail] AS [tblItemsFormulaDetail]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="tblPartnersCareInfo" EntityType="Self.tblPartnersCareInfo" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1008,9 +1272,44 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
     [tblStoreOrderOperatingVoice].[UpdateBy] AS [UpdateBy]
     FROM [dbo].[tblStoreOrderOperatingVoice] AS [tblStoreOrderOperatingVoice]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK__tblDistri__Provi__65E11278" Association="Self.FK__tblDistri__Provi__65E11278">
+            <End Role="tblProvine" EntitySet="tblProvine" />
+            <End Role="tblDistrict" EntitySet="tblDistrict" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblDistri__Provi__66D536B1" Association="Self.FK__tblDistri__Provi__66D536B1">
+            <End Role="tblProvine" EntitySet="tblProvine" />
+            <End Role="tblDistrict" EntitySet="tblDistrict" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProduc__Produ__33208881" Association="Self.FK__tblProduc__Produ__33208881">
+            <End Role="tblProductionTimeline" EntitySet="tblProductionTimeline" />
+            <End Role="tblProductionTimelineWeekly" EntitySet="tblProductionTimelineWeekly" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProduc__Produ__35FCF52C" Association="Self.FK__tblProduc__Produ__35FCF52C">
+            <End Role="tblProductionPlan" EntitySet="tblProductionPlan" />
+            <End Role="tblProductionProposal" EntitySet="tblProductionProposal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProduc__Produ__4BEC364B" Association="Self.FK__tblProduc__Produ__4BEC364B">
+            <End Role="tblProductionProposal" EntitySet="tblProductionProposal" />
+            <End Role="tblProductionProposalDetail" EntitySet="tblProductionProposalDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWard__Distric__62108194" Association="Self.FK__tblWard__Distric__62108194">
+            <End Role="tblDistrict" EntitySet="tblDistrict" />
+            <End Role="tblWard" EntitySet="tblWard" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWard__Distric__6304A5CD" Association="Self.FK__tblWard__Distric__6304A5CD">
+            <End Role="tblDistrict" EntitySet="tblDistrict" />
+            <End Role="tblWard" EntitySet="tblWard" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWard__Distric__67C95AEA" Association="Self.FK__tblWard__Distric__67C95AEA">
+            <End Role="tblDistrict" EntitySet="tblDistrict" />
+            <End Role="tblWard" EntitySet="tblWard" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWard__Distric__68BD7F23" Association="Self.FK__tblWard__Distric__68BD7F23">
+            <End Role="tblDistrict" EntitySet="tblDistrict" />
+            <End Role="tblWard" EntitySet="tblWard" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="XHTD_SERVICES.Data.Entities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1080,6 +1379,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdateDay" Type="DateTime" Precision="3" />
           <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblBillDetail">
           <Key>
@@ -1301,6 +1601,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="IsFinishedProduct" Type="Boolean" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="tblLongVehicle">
           <Key>
@@ -1381,6 +1682,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <Property Name="UpdatedBy" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="ZoneId" Type="Int32" />
+          <Property Name="ProviderType" Type="Int32" />
         </EntityType>
         <EntityType Name="tblPartnersCarePlan">
           <Key>
@@ -1440,6 +1742,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="Step" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblProductionProposals" Relationship="XHTD_SERVICES.Data.Entities.FK__tblProduc__Produ__35FCF52C" FromRole="tblProductionPlan" ToRole="tblProductionProposal" />
         </EntityType>
         <EntityType Name="tblProductionPlanOrder">
           <Key>
@@ -1511,20 +1814,6 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <Property Name="CreateDay" Type="DateTime" Precision="3" />
           <Property Name="UpdateDay" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="tblStock">
-          <Key>
-            <PropertyRef Name="Code" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Manager" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDay" Type="DateTime" Precision="3" />
-          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
-          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="tblStoreOrderLocation">
           <Key>
             <PropertyRef Name="Id" />
@@ -1541,109 +1830,6 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdateDay" Type="DateTime" Precision="3" />
           <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="tblStoreOrderOperating">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Vehicle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DriverName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="NameDistributor" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="ItemId" Type="Double" />
-          <Property Name="ItemUnitName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NameProduct" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="CatId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SumNumber" Type="Decimal" Precision="18" Scale="1" />
-          <Property Name="TimeIn33" Type="DateTime" Precision="3" />
-          <Property Name="CardNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OrderId" Type="Int32" />
-          <Property Name="DeliveryCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DeliveryCodeParent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OrderDate" Type="DateTime" Precision="3" />
-          <Property Name="TypeProduct" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TypeXK" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TimeIn21" Type="DateTime" Precision="3" />
-          <Property Name="TimeIn22" Type="DateTime" Precision="3" />
-          <Property Name="Confirm1" Type="Int32" />
-          <Property Name="TimeConfirm1" Type="DateTime" Precision="3" />
-          <Property Name="Confirm2" Type="Int32" />
-          <Property Name="TimeConfirm2" Type="DateTime" Precision="3" />
-          <Property Name="Confirm3" Type="Int32" />
-          <Property Name="TimeConfirm3" Type="DateTime" Precision="3" />
-          <Property Name="Confirm4" Type="Int32" />
-          <Property Name="TimeConfirm4" Type="DateTime" Precision="3" />
-          <Property Name="Confirm5" Type="Int32" />
-          <Property Name="TimeConfirm5" Type="DateTime" Precision="3" />
-          <Property Name="Confirm6" Type="Int32" />
-          <Property Name="TimeConfirm6" Type="DateTime" Precision="3" />
-          <Property Name="Confirm7" Type="Int32" />
-          <Property Name="TimeConfirm7" Type="DateTime" Precision="3" />
-          <Property Name="Confirm8" Type="Int32" />
-          <Property Name="TimeConfirm8" Type="DateTime" Precision="3" />
-          <Property Name="Confirm9" Type="Int32" />
-          <Property Name="TimeConfirm9" Type="DateTime" Precision="3" />
-          <Property Name="Confirm9Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Confirm9Image" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Confirm10" Type="Int32" />
-          <Property Name="TimeConfirm10" Type="DateTime" Precision="3" />
-          <Property Name="Step" Type="Int32" />
-          <Property Name="IndexOrder" Type="Int32" />
-          <Property Name="IndexOrder1" Type="Int32" />
-          <Property Name="IndexOrder2" Type="Int32" />
-          <Property Name="Trough" Type="Int32" />
-          <Property Name="Trough1" Type="Int32" />
-          <Property Name="NumberVoice" Type="Int32" />
-          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Prioritize" Type="Int32" />
-          <Property Name="DayCreate" Type="DateTime" Precision="3" />
-          <Property Name="IDDistributorSyn" Type="Int32" />
-          <Property Name="AreaId" Type="Int32" />
-          <Property Name="AreaName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="CodeStore" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NameStore" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="DriverUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DriverAccept" Type="DateTime" Precision="3" />
-          <Property Name="IndexOrderTemp" Type="Int32" />
-          <Property Name="WeightIn" Type="Int32" />
-          <Property Name="WeightInTime" Type="DateTime" Precision="3" />
-          <Property Name="WeightOut" Type="Int32" />
-          <Property Name="WeightOutTime" Type="DateTime" Precision="3" />
-          <Property Name="WeightInAuto" Type="Int32" />
-          <Property Name="WeightInTimeAuto" Type="DateTime" Precision="3" />
-          <Property Name="WeightOutAuto" Type="Int32" />
-          <Property Name="WeightOutTimeAuto" Type="DateTime" Precision="3" />
-          <Property Name="NoteFinish" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Longitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Latitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CountReindex" Type="Int32" />
-          <Property Name="IsVoiced" Type="Boolean" />
-          <Property Name="LocationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TransportMethodId" Type="Int32" />
-          <Property Name="TransportMethodName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LockInDbet" Type="Boolean" />
-          <Property Name="LogJobAttach" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsSyncedByNewWS" Type="Boolean" />
-          <Property Name="TroughLineCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IsScaleAuto" Type="Boolean" />
-          <Property Name="TimeConfirmHistory" Type="DateTime" Precision="3" />
-          <Property Name="LogHistory" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="MoocCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LogProcessOrder" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DriverPrintNumber" Type="Int32" />
-          <Property Name="DriverPrintTime" Type="DateTime" Precision="3" />
-          <Property Name="WarningNotCall" Type="Boolean" />
-          <Property Name="XiRoiAttatchmentFile" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="PackageNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Shifts" Type="Int32" />
-          <Property Name="AutoScaleOut" Type="Boolean" />
-          <Property Name="CreateDay" Type="DateTime" Precision="3" />
-          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
-          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Type" Type="Int32" />
-          <Property Name="PartnerId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblStoreOrderOperatingPriority">
           <Key>
@@ -1778,39 +1964,6 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <Property Name="UpdateDay" Type="DateTime" Precision="3" />
           <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="tblContract">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PartnerId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="TypeId" Type="Int32" />
-          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="SignDay" Type="DateTime" Precision="3" />
-          <Property Name="FinishDay" Type="DateTime" Precision="3" />
-          <Property Name="AttachFile" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity" Type="Double" />
-          <Property Name="TotalMoney" Type="Double" />
-          <Property Name="CreateDay" Type="DateTime" Precision="3" />
-          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
-          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="tblContractItem">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ContractNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ItemQuantity" Type="Double" />
-          <Property Name="ItemInfo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDay" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="tblPartnersCareInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -1896,9 +2049,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <EntitySet Name="tblRfids" EntityType="Self.tblRfid" />
           <EntitySet Name="tblRfidSigns" EntityType="Self.tblRfidSign" />
           <EntitySet Name="tblScaleOperatings" EntityType="Self.tblScaleOperating" />
-          <EntitySet Name="tblStocks" EntityType="Self.tblStock" />
           <EntitySet Name="tblStoreOrderLocations" EntityType="Self.tblStoreOrderLocation" />
-          <EntitySet Name="tblStoreOrderOperatings" EntityType="Self.tblStoreOrderOperating" />
           <EntitySet Name="tblStoreOrderOperatingPriorities" EntityType="Self.tblStoreOrderOperatingPriority" />
           <EntitySet Name="tblSystemParameters" EntityType="Self.tblSystemParameter" />
           <EntitySet Name="tblTroughs" EntityType="Self.tblTrough" />
@@ -1907,12 +2058,497 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <EntitySet Name="tblVehicles" EntityType="Self.tblVehicle" />
           <EntitySet Name="tblZones" EntityType="Self.tblZone" />
           <EntitySet Name="tblCompanies" EntityType="Self.tblCompany" />
-          <EntitySet Name="tblContracts" EntityType="Self.tblContract" />
-          <EntitySet Name="tblContractItems" EntityType="Self.tblContractItem" />
           <EntitySet Name="tblPartnersCareInfoes" EntityType="Self.tblPartnersCareInfo" />
           <EntitySet Name="tblProductionPlanProducts" EntityType="Self.tblProductionPlanProduct" />
           <EntitySet Name="tblStoreOrderOperatingVoices" EntityType="Self.tblStoreOrderOperatingVoice" />
+          <EntitySet Name="tblStoreOrderOperatings" EntityType="XHTD_SERVICES.Data.Entities.tblStoreOrderOperating" />
+          <EntitySet Name="C__EFMigrationsHistory" EntityType="XHTD_SERVICES.Data.Entities.C__EFMigrationsHistory" />
+          <EntitySet Name="sysdiagrams" EntityType="XHTD_SERVICES.Data.Entities.sysdiagram" />
+          <EntitySet Name="tblContractItems" EntityType="XHTD_SERVICES.Data.Entities.tblContractItem" />
+          <EntitySet Name="tblDistricts" EntityType="XHTD_SERVICES.Data.Entities.tblDistrict" />
+          <EntitySet Name="tblItemsFormulas" EntityType="XHTD_SERVICES.Data.Entities.tblItemsFormula" />
+          <EntitySet Name="tblProductionProposals" EntityType="XHTD_SERVICES.Data.Entities.tblProductionProposal" />
+          <EntitySet Name="tblProductionProposalDetails" EntityType="XHTD_SERVICES.Data.Entities.tblProductionProposalDetail" />
+          <EntitySet Name="tblProductionTimelines" EntityType="XHTD_SERVICES.Data.Entities.tblProductionTimeline" />
+          <EntitySet Name="tblProductionTimelineWeeklies" EntityType="XHTD_SERVICES.Data.Entities.tblProductionTimelineWeekly" />
+          <EntitySet Name="tblProvines" EntityType="XHTD_SERVICES.Data.Entities.tblProvine" />
+          <EntitySet Name="tblWards" EntityType="XHTD_SERVICES.Data.Entities.tblWard" />
+          <EntitySet Name="tblItemsFormulaDetails" EntityType="XHTD_SERVICES.Data.Entities.tblItemsFormulaDetail" />
+          <AssociationSet Name="FK__tblDistri__Provi__65E11278" Association="XHTD_SERVICES.Data.Entities.FK__tblDistri__Provi__65E11278">
+            <End Role="tblProvine" EntitySet="tblProvines" />
+            <End Role="tblDistrict" EntitySet="tblDistricts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblDistri__Provi__66D536B1" Association="XHTD_SERVICES.Data.Entities.FK__tblDistri__Provi__66D536B1">
+            <End Role="tblProvine" EntitySet="tblProvines" />
+            <End Role="tblDistrict" EntitySet="tblDistricts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWard__Distric__62108194" Association="XHTD_SERVICES.Data.Entities.FK__tblWard__Distric__62108194">
+            <End Role="tblDistrict" EntitySet="tblDistricts" />
+            <End Role="tblWard" EntitySet="tblWards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWard__Distric__6304A5CD" Association="XHTD_SERVICES.Data.Entities.FK__tblWard__Distric__6304A5CD">
+            <End Role="tblDistrict" EntitySet="tblDistricts" />
+            <End Role="tblWard" EntitySet="tblWards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWard__Distric__67C95AEA" Association="XHTD_SERVICES.Data.Entities.FK__tblWard__Distric__67C95AEA">
+            <End Role="tblDistrict" EntitySet="tblDistricts" />
+            <End Role="tblWard" EntitySet="tblWards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWard__Distric__68BD7F23" Association="XHTD_SERVICES.Data.Entities.FK__tblWard__Distric__68BD7F23">
+            <End Role="tblDistrict" EntitySet="tblDistricts" />
+            <End Role="tblWard" EntitySet="tblWards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProduc__Produ__35FCF52C" Association="XHTD_SERVICES.Data.Entities.FK__tblProduc__Produ__35FCF52C">
+            <End Role="tblProductionPlan" EntitySet="tblProductionPlans" />
+            <End Role="tblProductionProposal" EntitySet="tblProductionProposals" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProduc__Produ__4BEC364B" Association="XHTD_SERVICES.Data.Entities.FK__tblProduc__Produ__4BEC364B">
+            <End Role="tblProductionProposal" EntitySet="tblProductionProposals" />
+            <End Role="tblProductionProposalDetail" EntitySet="tblProductionProposalDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProduc__Produ__33208881" Association="XHTD_SERVICES.Data.Entities.FK__tblProduc__Produ__33208881">
+            <End Role="tblProductionTimeline" EntitySet="tblProductionTimelines" />
+            <End Role="tblProductionTimelineWeekly" EntitySet="tblProductionTimelineWeeklies" />
+          </AssociationSet>
+          <EntitySet Name="tblContracts" EntityType="XHTD_SERVICES.Data.Entities.tblContract" />
+          <EntitySet Name="tblStocks" EntityType="XHTD_SERVICES.Data.Entities.tblStock" />
         </EntityContainer>
+        <EntityType Name="tblStoreOrderOperating">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vehicle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DriverName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="NameDistributor" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ItemId" Type="Double" />
+          <Property Name="ItemUnitName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NameProduct" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CatId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SumNumber" Type="Decimal" Precision="18" Scale="1" />
+          <Property Name="TimeIn33" Type="DateTime" Precision="3" />
+          <Property Name="CardNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderId" Type="Int32" />
+          <Property Name="DeliveryCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryCodeParent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="TypeProduct" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TypeXK" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TimeIn21" Type="DateTime" Precision="3" />
+          <Property Name="TimeIn22" Type="DateTime" Precision="3" />
+          <Property Name="Confirm1" Type="Int32" />
+          <Property Name="TimeConfirm1" Type="DateTime" Precision="3" />
+          <Property Name="Confirm2" Type="Int32" />
+          <Property Name="TimeConfirm2" Type="DateTime" Precision="3" />
+          <Property Name="Confirm3" Type="Int32" />
+          <Property Name="TimeConfirm3" Type="DateTime" Precision="3" />
+          <Property Name="Confirm4" Type="Int32" />
+          <Property Name="TimeConfirm4" Type="DateTime" Precision="3" />
+          <Property Name="Confirm5" Type="Int32" />
+          <Property Name="TimeConfirm5" Type="DateTime" Precision="3" />
+          <Property Name="Confirm6" Type="Int32" />
+          <Property Name="TimeConfirm6" Type="DateTime" Precision="3" />
+          <Property Name="Confirm7" Type="Int32" />
+          <Property Name="TimeConfirm7" Type="DateTime" Precision="3" />
+          <Property Name="Confirm8" Type="Int32" />
+          <Property Name="TimeConfirm8" Type="DateTime" Precision="3" />
+          <Property Name="Confirm9" Type="Int32" />
+          <Property Name="TimeConfirm9" Type="DateTime" Precision="3" />
+          <Property Name="Confirm9Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Confirm9Image" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Confirm10" Type="Int32" />
+          <Property Name="TimeConfirm10" Type="DateTime" Precision="3" />
+          <Property Name="Step" Type="Int32" />
+          <Property Name="IndexOrder" Type="Int32" />
+          <Property Name="IndexOrder1" Type="Int32" />
+          <Property Name="IndexOrder2" Type="Int32" />
+          <Property Name="Trough" Type="Int32" />
+          <Property Name="Trough1" Type="Int32" />
+          <Property Name="NumberVoice" Type="Int32" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Prioritize" Type="Int32" />
+          <Property Name="DayCreate" Type="DateTime" Precision="3" />
+          <Property Name="IDDistributorSyn" Type="Int32" />
+          <Property Name="AreaId" Type="Int32" />
+          <Property Name="AreaName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CodeStore" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NameStore" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DriverUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DriverAccept" Type="DateTime" Precision="3" />
+          <Property Name="IndexOrderTemp" Type="Int32" />
+          <Property Name="WeightIn" Type="Int32" />
+          <Property Name="WeightInTime" Type="DateTime" Precision="3" />
+          <Property Name="WeightOut" Type="Int32" />
+          <Property Name="WeightOutTime" Type="DateTime" Precision="3" />
+          <Property Name="WeightInAuto" Type="Int32" />
+          <Property Name="WeightInTimeAuto" Type="DateTime" Precision="3" />
+          <Property Name="WeightOutAuto" Type="Int32" />
+          <Property Name="WeightOutTimeAuto" Type="DateTime" Precision="3" />
+          <Property Name="NoteFinish" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CountReindex" Type="Int32" />
+          <Property Name="IsVoiced" Type="Boolean" />
+          <Property Name="LocationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransportMethodId" Type="Int32" />
+          <Property Name="TransportMethodName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LockInDbet" Type="Boolean" />
+          <Property Name="LogJobAttach" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsSyncedByNewWS" Type="Boolean" />
+          <Property Name="TroughLineCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsScaleAuto" Type="Boolean" />
+          <Property Name="TimeConfirmHistory" Type="DateTime" Precision="3" />
+          <Property Name="LogHistory" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MoocCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LogProcessOrder" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DriverPrintNumber" Type="Int32" />
+          <Property Name="DriverPrintTime" Type="DateTime" Precision="3" />
+          <Property Name="WarningNotCall" Type="Boolean" />
+          <Property Name="XiRoiAttatchmentFile" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PackageNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Shifts" Type="Int32" />
+          <Property Name="AutoScaleOut" Type="Boolean" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="PartnerId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RealRequireNumber" Type="Decimal" Precision="18" Scale="1" />
+          <Property Name="CodeExport" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReasonExport" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NoteExport" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="C__EFMigrationsHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tblContractItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContractId" Type="Int32" Nullable="false" />
+          <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemQuantity" Type="Double" />
+          <Property Name="ItemInfo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblDistrict">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="DivisionType" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="CodeName" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+          <Property Name="ProvineCode" Type="Int32" />
+          <NavigationProperty Name="tblProvine" Relationship="XHTD_SERVICES.Data.Entities.FK__tblDistri__Provi__65E11278" FromRole="tblDistrict" ToRole="tblProvine" />
+          <NavigationProperty Name="tblProvine1" Relationship="XHTD_SERVICES.Data.Entities.FK__tblDistri__Provi__66D536B1" FromRole="tblDistrict" ToRole="tblProvine" />
+          <NavigationProperty Name="tblWards" Relationship="XHTD_SERVICES.Data.Entities.FK__tblWard__Distric__62108194" FromRole="tblDistrict" ToRole="tblWard" />
+          <NavigationProperty Name="tblWards1" Relationship="XHTD_SERVICES.Data.Entities.FK__tblWard__Distric__6304A5CD" FromRole="tblDistrict" ToRole="tblWard" />
+          <NavigationProperty Name="tblWards2" Relationship="XHTD_SERVICES.Data.Entities.FK__tblWard__Distric__67C95AEA" FromRole="tblDistrict" ToRole="tblWard" />
+          <NavigationProperty Name="tblWards3" Relationship="XHTD_SERVICES.Data.Entities.FK__tblWard__Distric__68BD7F23" FromRole="tblDistrict" ToRole="tblWard" />
+        </EntityType>
+        <EntityType Name="tblItemsFormula">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RefNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RecoveryRating" Type="Double" />
+          <Property Name="Note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="Int32" Nullable="false" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblProductionProposal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="155" FixedLength="false" Unicode="true" />
+          <Property Name="SubTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ProductionPlanId" Type="Int32" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Step" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblProductionPlan" Relationship="XHTD_SERVICES.Data.Entities.FK__tblProduc__Produ__35FCF52C" FromRole="tblProductionProposal" ToRole="tblProductionPlan" />
+          <NavigationProperty Name="tblProductionProposalDetails" Relationship="XHTD_SERVICES.Data.Entities.FK__tblProduc__Produ__4BEC364B" FromRole="tblProductionProposal" ToRole="tblProductionProposalDetail" />
+        </EntityType>
+        <EntityType Name="tblProductionProposalDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemId" Type="Int32" />
+          <Property Name="RecommendedNumberAB" Type="Double" />
+          <Property Name="ChangedNumberAB" Type="Double" />
+          <Property Name="RecommendedNumberCD" Type="Double" />
+          <Property Name="ChangedNumberCD" Type="Double" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductionProposalId" Type="Int32" />
+          <Property Name="ItemName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ItemUnitName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblProductionProposal" Relationship="XHTD_SERVICES.Data.Entities.FK__tblProduc__Produ__4BEC364B" FromRole="tblProductionProposalDetail" ToRole="tblProductionProposal" />
+        </EntityType>
+        <EntityType Name="tblProductionTimeline">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RefNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumberOfProductionPlan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DayFrom" Type="DateTime" Precision="3" />
+          <Property Name="DayTo" Type="DateTime" Precision="3" />
+          <Property Name="UnitName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PlanCreationDate" Type="DateTime" Precision="3" />
+          <Property Name="Note" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Step" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblProductionTimelineWeeklies" Relationship="XHTD_SERVICES.Data.Entities.FK__tblProduc__Produ__33208881" FromRole="tblProductionTimeline" ToRole="tblProductionTimelineWeekly" />
+        </EntityType>
+        <EntityType Name="tblProductionTimelineWeekly">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductionTimelineID" Type="Int32" Nullable="false" />
+          <Property Name="DateOfManufacture" Type="DateTime" Precision="3" />
+          <Property Name="Slot" Type="Int32" />
+          <Property Name="Stage" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ItemId" Type="Int32" />
+          <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ItemName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="Int32" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblProductionTimeline" Relationship="XHTD_SERVICES.Data.Entities.FK__tblProduc__Produ__33208881" FromRole="tblProductionTimelineWeekly" ToRole="tblProductionTimeline" />
+        </EntityType>
+        <EntityType Name="tblProvine">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="DivisionType" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="CodeName" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneCode" Type="Int32" />
+          <NavigationProperty Name="tblDistricts" Relationship="XHTD_SERVICES.Data.Entities.FK__tblDistri__Provi__65E11278" FromRole="tblProvine" ToRole="tblDistrict" />
+          <NavigationProperty Name="tblDistricts1" Relationship="XHTD_SERVICES.Data.Entities.FK__tblDistri__Provi__66D536B1" FromRole="tblProvine" ToRole="tblDistrict" />
+        </EntityType>
+        <EntityType Name="tblWard">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="DivisionType" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="CodeName" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+          <Property Name="DistrictCode" Type="Int32" />
+          <NavigationProperty Name="tblDistrict" Relationship="XHTD_SERVICES.Data.Entities.FK__tblWard__Distric__62108194" FromRole="tblWard" ToRole="tblDistrict" />
+          <NavigationProperty Name="tblDistrict1" Relationship="XHTD_SERVICES.Data.Entities.FK__tblWard__Distric__6304A5CD" FromRole="tblWard" ToRole="tblDistrict" />
+          <NavigationProperty Name="tblDistrict2" Relationship="XHTD_SERVICES.Data.Entities.FK__tblWard__Distric__67C95AEA" FromRole="tblWard" ToRole="tblDistrict" />
+          <NavigationProperty Name="tblDistrict3" Relationship="XHTD_SERVICES.Data.Entities.FK__tblWard__Distric__68BD7F23" FromRole="tblWard" ToRole="tblDistrict" />
+        </EntityType>
+        <EntityType Name="tblItemsFormulaDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ItemCode" />
+            <PropertyRef Name="ItemRating" />
+            <PropertyRef Name="ItemId" />
+            <PropertyRef Name="ItemFormulaId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemRating" Type="Double" Nullable="false" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
+          <Property Name="ItemFormulaId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tblDistri__Provi__65E11278">
+          <End Type="XHTD_SERVICES.Data.Entities.tblProvine" Role="tblProvine" Multiplicity="0..1" />
+          <End Type="XHTD_SERVICES.Data.Entities.tblDistrict" Role="tblDistrict" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProvine">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="tblDistrict">
+              <PropertyRef Name="ProvineCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblDistri__Provi__66D536B1">
+          <End Type="XHTD_SERVICES.Data.Entities.tblProvine" Role="tblProvine" Multiplicity="0..1" />
+          <End Type="XHTD_SERVICES.Data.Entities.tblDistrict" Role="tblDistrict" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProvine">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="tblDistrict">
+              <PropertyRef Name="ProvineCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWard__Distric__62108194">
+          <End Type="XHTD_SERVICES.Data.Entities.tblDistrict" Role="tblDistrict" Multiplicity="0..1" />
+          <End Type="XHTD_SERVICES.Data.Entities.tblWard" Role="tblWard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDistrict">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="tblWard">
+              <PropertyRef Name="DistrictCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWard__Distric__6304A5CD">
+          <End Type="XHTD_SERVICES.Data.Entities.tblDistrict" Role="tblDistrict" Multiplicity="0..1" />
+          <End Type="XHTD_SERVICES.Data.Entities.tblWard" Role="tblWard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDistrict">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="tblWard">
+              <PropertyRef Name="DistrictCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWard__Distric__67C95AEA">
+          <End Type="XHTD_SERVICES.Data.Entities.tblDistrict" Role="tblDistrict" Multiplicity="0..1" />
+          <End Type="XHTD_SERVICES.Data.Entities.tblWard" Role="tblWard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDistrict">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="tblWard">
+              <PropertyRef Name="DistrictCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWard__Distric__68BD7F23">
+          <End Type="XHTD_SERVICES.Data.Entities.tblDistrict" Role="tblDistrict" Multiplicity="0..1" />
+          <End Type="XHTD_SERVICES.Data.Entities.tblWard" Role="tblWard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDistrict">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="tblWard">
+              <PropertyRef Name="DistrictCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProduc__Produ__35FCF52C">
+          <End Type="XHTD_SERVICES.Data.Entities.tblProductionPlan" Role="tblProductionPlan" Multiplicity="0..1" />
+          <End Type="XHTD_SERVICES.Data.Entities.tblProductionProposal" Role="tblProductionProposal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProductionPlan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblProductionProposal">
+              <PropertyRef Name="ProductionPlanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProduc__Produ__4BEC364B">
+          <End Type="XHTD_SERVICES.Data.Entities.tblProductionProposal" Role="tblProductionProposal" Multiplicity="0..1" />
+          <End Type="XHTD_SERVICES.Data.Entities.tblProductionProposalDetail" Role="tblProductionProposalDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProductionProposal">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblProductionProposalDetail">
+              <PropertyRef Name="ProductionProposalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProduc__Produ__33208881">
+          <End Type="XHTD_SERVICES.Data.Entities.tblProductionTimeline" Role="tblProductionTimeline" Multiplicity="1" />
+          <End Type="XHTD_SERVICES.Data.Entities.tblProductionTimelineWeekly" Role="tblProductionTimelineWeekly" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProductionTimeline">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblProductionTimelineWeekly">
+              <PropertyRef Name="ProductionTimelineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblContract">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartnerId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TypeId" Type="Int32" />
+          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SignDay" Type="DateTime" Precision="3" />
+          <Property Name="FinishDay" Type="DateTime" Precision="3" />
+          <Property Name="AttachFile" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Quantity" Type="Double" />
+          <Property Name="TotalMoney" Type="Double" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FileName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblStock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Manager" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDay" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1972,6 +2608,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <EntitySetMapping Name="tblBills">
             <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblBill">
               <MappingFragment StoreEntitySet="tblBill">
+                <ScalarProperty Name="DeliveryCode" ColumnName="DeliveryCode" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="TypeId" ColumnName="TypeId" />
@@ -2207,6 +2844,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <EntitySetMapping Name="tblItems">
             <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblItem">
               <MappingFragment StoreEntitySet="tblItems">
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="ItemId" ColumnName="ItemId" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -2283,6 +2921,7 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
           <EntitySetMapping Name="tblPartners">
             <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblPartner">
               <MappingFragment StoreEntitySet="tblPartners">
+                <ScalarProperty Name="ProviderType" ColumnName="ProviderType" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PartnerGroupId" ColumnName="PartnerGroupId" />
                 <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
@@ -2446,21 +3085,6 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblStocks">
-            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblStock">
-              <MappingFragment StoreEntitySet="tblStock">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Manager" ColumnName="Manager" />
-                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
-                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
-                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
-                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblStoreOrderLocations">
             <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblStoreOrderLocation">
               <MappingFragment StoreEntitySet="tblStoreOrderLocation">
@@ -2476,110 +3100,6 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
                 <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
                 <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
                 <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblStoreOrderOperatings">
-            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblStoreOrderOperating">
-              <MappingFragment StoreEntitySet="tblStoreOrderOperating">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Vehicle" ColumnName="Vehicle" />
-                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
-                <ScalarProperty Name="NameDistributor" ColumnName="NameDistributor" />
-                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
-                <ScalarProperty Name="ItemUnitName" ColumnName="ItemUnitName" />
-                <ScalarProperty Name="NameProduct" ColumnName="NameProduct" />
-                <ScalarProperty Name="CatId" ColumnName="CatId" />
-                <ScalarProperty Name="SumNumber" ColumnName="SumNumber" />
-                <ScalarProperty Name="TimeIn33" ColumnName="TimeIn33" />
-                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="DeliveryCode" ColumnName="DeliveryCode" />
-                <ScalarProperty Name="DeliveryCodeParent" ColumnName="DeliveryCodeParent" />
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-                <ScalarProperty Name="TypeProduct" ColumnName="TypeProduct" />
-                <ScalarProperty Name="TypeXK" ColumnName="TypeXK" />
-                <ScalarProperty Name="TimeIn21" ColumnName="TimeIn21" />
-                <ScalarProperty Name="TimeIn22" ColumnName="TimeIn22" />
-                <ScalarProperty Name="Confirm1" ColumnName="Confirm1" />
-                <ScalarProperty Name="TimeConfirm1" ColumnName="TimeConfirm1" />
-                <ScalarProperty Name="Confirm2" ColumnName="Confirm2" />
-                <ScalarProperty Name="TimeConfirm2" ColumnName="TimeConfirm2" />
-                <ScalarProperty Name="Confirm3" ColumnName="Confirm3" />
-                <ScalarProperty Name="TimeConfirm3" ColumnName="TimeConfirm3" />
-                <ScalarProperty Name="Confirm4" ColumnName="Confirm4" />
-                <ScalarProperty Name="TimeConfirm4" ColumnName="TimeConfirm4" />
-                <ScalarProperty Name="Confirm5" ColumnName="Confirm5" />
-                <ScalarProperty Name="TimeConfirm5" ColumnName="TimeConfirm5" />
-                <ScalarProperty Name="Confirm6" ColumnName="Confirm6" />
-                <ScalarProperty Name="TimeConfirm6" ColumnName="TimeConfirm6" />
-                <ScalarProperty Name="Confirm7" ColumnName="Confirm7" />
-                <ScalarProperty Name="TimeConfirm7" ColumnName="TimeConfirm7" />
-                <ScalarProperty Name="Confirm8" ColumnName="Confirm8" />
-                <ScalarProperty Name="TimeConfirm8" ColumnName="TimeConfirm8" />
-                <ScalarProperty Name="Confirm9" ColumnName="Confirm9" />
-                <ScalarProperty Name="TimeConfirm9" ColumnName="TimeConfirm9" />
-                <ScalarProperty Name="Confirm9Note" ColumnName="Confirm9Note" />
-                <ScalarProperty Name="Confirm9Image" ColumnName="Confirm9Image" />
-                <ScalarProperty Name="Confirm10" ColumnName="Confirm10" />
-                <ScalarProperty Name="TimeConfirm10" ColumnName="TimeConfirm10" />
-                <ScalarProperty Name="Step" ColumnName="Step" />
-                <ScalarProperty Name="IndexOrder" ColumnName="IndexOrder" />
-                <ScalarProperty Name="IndexOrder1" ColumnName="IndexOrder1" />
-                <ScalarProperty Name="IndexOrder2" ColumnName="IndexOrder2" />
-                <ScalarProperty Name="Trough" ColumnName="Trough" />
-                <ScalarProperty Name="Trough1" ColumnName="Trough1" />
-                <ScalarProperty Name="NumberVoice" ColumnName="NumberVoice" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Prioritize" ColumnName="Prioritize" />
-                <ScalarProperty Name="DayCreate" ColumnName="DayCreate" />
-                <ScalarProperty Name="IDDistributorSyn" ColumnName="IDDistributorSyn" />
-                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
-                <ScalarProperty Name="AreaName" ColumnName="AreaName" />
-                <ScalarProperty Name="CodeStore" ColumnName="CodeStore" />
-                <ScalarProperty Name="NameStore" ColumnName="NameStore" />
-                <ScalarProperty Name="DriverUserName" ColumnName="DriverUserName" />
-                <ScalarProperty Name="DriverAccept" ColumnName="DriverAccept" />
-                <ScalarProperty Name="IndexOrderTemp" ColumnName="IndexOrderTemp" />
-                <ScalarProperty Name="WeightIn" ColumnName="WeightIn" />
-                <ScalarProperty Name="WeightInTime" ColumnName="WeightInTime" />
-                <ScalarProperty Name="WeightOut" ColumnName="WeightOut" />
-                <ScalarProperty Name="WeightOutTime" ColumnName="WeightOutTime" />
-                <ScalarProperty Name="WeightInAuto" ColumnName="WeightInAuto" />
-                <ScalarProperty Name="WeightInTimeAuto" ColumnName="WeightInTimeAuto" />
-                <ScalarProperty Name="WeightOutAuto" ColumnName="WeightOutAuto" />
-                <ScalarProperty Name="WeightOutTimeAuto" ColumnName="WeightOutTimeAuto" />
-                <ScalarProperty Name="NoteFinish" ColumnName="NoteFinish" />
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="CountReindex" ColumnName="CountReindex" />
-                <ScalarProperty Name="IsVoiced" ColumnName="IsVoiced" />
-                <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
-                <ScalarProperty Name="TransportMethodId" ColumnName="TransportMethodId" />
-                <ScalarProperty Name="TransportMethodName" ColumnName="TransportMethodName" />
-                <ScalarProperty Name="LockInDbet" ColumnName="LockInDbet" />
-                <ScalarProperty Name="LogJobAttach" ColumnName="LogJobAttach" />
-                <ScalarProperty Name="IsSyncedByNewWS" ColumnName="IsSyncedByNewWS" />
-                <ScalarProperty Name="TroughLineCode" ColumnName="TroughLineCode" />
-                <ScalarProperty Name="IsScaleAuto" ColumnName="IsScaleAuto" />
-                <ScalarProperty Name="TimeConfirmHistory" ColumnName="TimeConfirmHistory" />
-                <ScalarProperty Name="LogHistory" ColumnName="LogHistory" />
-                <ScalarProperty Name="MoocCode" ColumnName="MoocCode" />
-                <ScalarProperty Name="LogProcessOrder" ColumnName="LogProcessOrder" />
-                <ScalarProperty Name="DriverPrintNumber" ColumnName="DriverPrintNumber" />
-                <ScalarProperty Name="DriverPrintTime" ColumnName="DriverPrintTime" />
-                <ScalarProperty Name="WarningNotCall" ColumnName="WarningNotCall" />
-                <ScalarProperty Name="XiRoiAttatchmentFile" ColumnName="XiRoiAttatchmentFile" />
-                <ScalarProperty Name="PackageNumber" ColumnName="PackageNumber" />
-                <ScalarProperty Name="Shifts" ColumnName="Shifts" />
-                <ScalarProperty Name="AutoScaleOut" ColumnName="AutoScaleOut" />
-                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
-                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
-                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
-                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2724,41 +3244,6 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblContracts">
-            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblContract">
-              <MappingFragment StoreEntitySet="tblContract">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
-                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
-                <ScalarProperty Name="Number" ColumnName="Number" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="SignDay" ColumnName="SignDay" />
-                <ScalarProperty Name="FinishDay" ColumnName="FinishDay" />
-                <ScalarProperty Name="AttachFile" ColumnName="AttachFile" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
-                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
-                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
-                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
-                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblContractItems">
-            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblContractItem">
-              <MappingFragment StoreEntitySet="tblContractItems">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ContractNumber" ColumnName="ContractNumber" />
-                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
-                <ScalarProperty Name="ItemQuantity" ColumnName="ItemQuantity" />
-                <ScalarProperty Name="ItemInfo" ColumnName="ItemInfo" />
-                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblPartnersCareInfoes">
             <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblPartnersCareInfo">
               <MappingFragment StoreEntitySet="tblPartnersCareInfo">
@@ -2813,6 +3298,328 @@ warning 6002: The table/view 'mMES-DMS-BMBD.dbo.tblStoreOrderOperatingVoice' doe
                 <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
                 <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
                 <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblStoreOrderOperatings">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblStoreOrderOperating">
+              <MappingFragment StoreEntitySet="tblStoreOrderOperating">
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="NoteExport" ColumnName="NoteExport" />
+                <ScalarProperty Name="ReasonExport" ColumnName="ReasonExport" />
+                <ScalarProperty Name="CodeExport" ColumnName="CodeExport" />
+                <ScalarProperty Name="RealRequireNumber" ColumnName="RealRequireNumber" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="AutoScaleOut" ColumnName="AutoScaleOut" />
+                <ScalarProperty Name="Shifts" ColumnName="Shifts" />
+                <ScalarProperty Name="PackageNumber" ColumnName="PackageNumber" />
+                <ScalarProperty Name="XiRoiAttatchmentFile" ColumnName="XiRoiAttatchmentFile" />
+                <ScalarProperty Name="WarningNotCall" ColumnName="WarningNotCall" />
+                <ScalarProperty Name="DriverPrintTime" ColumnName="DriverPrintTime" />
+                <ScalarProperty Name="DriverPrintNumber" ColumnName="DriverPrintNumber" />
+                <ScalarProperty Name="LogProcessOrder" ColumnName="LogProcessOrder" />
+                <ScalarProperty Name="MoocCode" ColumnName="MoocCode" />
+                <ScalarProperty Name="LogHistory" ColumnName="LogHistory" />
+                <ScalarProperty Name="TimeConfirmHistory" ColumnName="TimeConfirmHistory" />
+                <ScalarProperty Name="IsScaleAuto" ColumnName="IsScaleAuto" />
+                <ScalarProperty Name="TroughLineCode" ColumnName="TroughLineCode" />
+                <ScalarProperty Name="IsSyncedByNewWS" ColumnName="IsSyncedByNewWS" />
+                <ScalarProperty Name="LogJobAttach" ColumnName="LogJobAttach" />
+                <ScalarProperty Name="LockInDbet" ColumnName="LockInDbet" />
+                <ScalarProperty Name="TransportMethodName" ColumnName="TransportMethodName" />
+                <ScalarProperty Name="TransportMethodId" ColumnName="TransportMethodId" />
+                <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+                <ScalarProperty Name="IsVoiced" ColumnName="IsVoiced" />
+                <ScalarProperty Name="CountReindex" ColumnName="CountReindex" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="NoteFinish" ColumnName="NoteFinish" />
+                <ScalarProperty Name="WeightOutTimeAuto" ColumnName="WeightOutTimeAuto" />
+                <ScalarProperty Name="WeightOutAuto" ColumnName="WeightOutAuto" />
+                <ScalarProperty Name="WeightInTimeAuto" ColumnName="WeightInTimeAuto" />
+                <ScalarProperty Name="WeightInAuto" ColumnName="WeightInAuto" />
+                <ScalarProperty Name="WeightOutTime" ColumnName="WeightOutTime" />
+                <ScalarProperty Name="WeightOut" ColumnName="WeightOut" />
+                <ScalarProperty Name="WeightInTime" ColumnName="WeightInTime" />
+                <ScalarProperty Name="WeightIn" ColumnName="WeightIn" />
+                <ScalarProperty Name="IndexOrderTemp" ColumnName="IndexOrderTemp" />
+                <ScalarProperty Name="DriverAccept" ColumnName="DriverAccept" />
+                <ScalarProperty Name="DriverUserName" ColumnName="DriverUserName" />
+                <ScalarProperty Name="NameStore" ColumnName="NameStore" />
+                <ScalarProperty Name="CodeStore" ColumnName="CodeStore" />
+                <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="IDDistributorSyn" ColumnName="IDDistributorSyn" />
+                <ScalarProperty Name="DayCreate" ColumnName="DayCreate" />
+                <ScalarProperty Name="Prioritize" ColumnName="Prioritize" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="NumberVoice" ColumnName="NumberVoice" />
+                <ScalarProperty Name="Trough1" ColumnName="Trough1" />
+                <ScalarProperty Name="Trough" ColumnName="Trough" />
+                <ScalarProperty Name="IndexOrder2" ColumnName="IndexOrder2" />
+                <ScalarProperty Name="IndexOrder1" ColumnName="IndexOrder1" />
+                <ScalarProperty Name="IndexOrder" ColumnName="IndexOrder" />
+                <ScalarProperty Name="Step" ColumnName="Step" />
+                <ScalarProperty Name="TimeConfirm10" ColumnName="TimeConfirm10" />
+                <ScalarProperty Name="Confirm10" ColumnName="Confirm10" />
+                <ScalarProperty Name="Confirm9Image" ColumnName="Confirm9Image" />
+                <ScalarProperty Name="Confirm9Note" ColumnName="Confirm9Note" />
+                <ScalarProperty Name="TimeConfirm9" ColumnName="TimeConfirm9" />
+                <ScalarProperty Name="Confirm9" ColumnName="Confirm9" />
+                <ScalarProperty Name="TimeConfirm8" ColumnName="TimeConfirm8" />
+                <ScalarProperty Name="Confirm8" ColumnName="Confirm8" />
+                <ScalarProperty Name="TimeConfirm7" ColumnName="TimeConfirm7" />
+                <ScalarProperty Name="Confirm7" ColumnName="Confirm7" />
+                <ScalarProperty Name="TimeConfirm6" ColumnName="TimeConfirm6" />
+                <ScalarProperty Name="Confirm6" ColumnName="Confirm6" />
+                <ScalarProperty Name="TimeConfirm5" ColumnName="TimeConfirm5" />
+                <ScalarProperty Name="Confirm5" ColumnName="Confirm5" />
+                <ScalarProperty Name="TimeConfirm4" ColumnName="TimeConfirm4" />
+                <ScalarProperty Name="Confirm4" ColumnName="Confirm4" />
+                <ScalarProperty Name="TimeConfirm3" ColumnName="TimeConfirm3" />
+                <ScalarProperty Name="Confirm3" ColumnName="Confirm3" />
+                <ScalarProperty Name="TimeConfirm2" ColumnName="TimeConfirm2" />
+                <ScalarProperty Name="Confirm2" ColumnName="Confirm2" />
+                <ScalarProperty Name="TimeConfirm1" ColumnName="TimeConfirm1" />
+                <ScalarProperty Name="Confirm1" ColumnName="Confirm1" />
+                <ScalarProperty Name="TimeIn22" ColumnName="TimeIn22" />
+                <ScalarProperty Name="TimeIn21" ColumnName="TimeIn21" />
+                <ScalarProperty Name="TypeXK" ColumnName="TypeXK" />
+                <ScalarProperty Name="TypeProduct" ColumnName="TypeProduct" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="DeliveryCodeParent" ColumnName="DeliveryCodeParent" />
+                <ScalarProperty Name="DeliveryCode" ColumnName="DeliveryCode" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
+                <ScalarProperty Name="TimeIn33" ColumnName="TimeIn33" />
+                <ScalarProperty Name="SumNumber" ColumnName="SumNumber" />
+                <ScalarProperty Name="CatId" ColumnName="CatId" />
+                <ScalarProperty Name="NameProduct" ColumnName="NameProduct" />
+                <ScalarProperty Name="ItemUnitName" ColumnName="ItemUnitName" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="NameDistributor" ColumnName="NameDistributor" />
+                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+                <ScalarProperty Name="Vehicle" ColumnName="Vehicle" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C__EFMigrationsHistory">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.C__EFMigrationsHistory">
+              <MappingFragment StoreEntitySet="__EFMigrationsHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblContractItems">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblContractItem">
+              <MappingFragment StoreEntitySet="tblContractItems">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="ItemInfo" ColumnName="ItemInfo" />
+                <ScalarProperty Name="ItemQuantity" ColumnName="ItemQuantity" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="ContractId" ColumnName="ContractId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDistricts">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblDistrict">
+              <MappingFragment StoreEntitySet="tblDistrict">
+                <ScalarProperty Name="ProvineCode" ColumnName="ProvineCode" />
+                <ScalarProperty Name="CodeName" ColumnName="CodeName" />
+                <ScalarProperty Name="DivisionType" ColumnName="DivisionType" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblItemsFormulas">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblItemsFormula">
+              <MappingFragment StoreEntitySet="tblItemsFormula">
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="RecoveryRating" ColumnName="RecoveryRating" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="RefNumber" ColumnName="RefNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProductionProposals">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblProductionProposal">
+              <MappingFragment StoreEntitySet="tblProductionProposal">
+                <ScalarProperty Name="Step" ColumnName="Step" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="ProductionPlanId" ColumnName="ProductionPlanId" />
+                <ScalarProperty Name="SubTitle" ColumnName="SubTitle" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProductionProposalDetails">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblProductionProposalDetail">
+              <MappingFragment StoreEntitySet="tblProductionProposalDetail">
+                <ScalarProperty Name="ItemUnitName" ColumnName="ItemUnitName" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ProductionProposalId" ColumnName="ProductionProposalId" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="ChangedNumberCD" ColumnName="ChangedNumberCD" />
+                <ScalarProperty Name="RecommendedNumberCD" ColumnName="RecommendedNumberCD" />
+                <ScalarProperty Name="ChangedNumberAB" ColumnName="ChangedNumberAB" />
+                <ScalarProperty Name="RecommendedNumberAB" ColumnName="RecommendedNumberAB" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProductionTimelines">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblProductionTimeline">
+              <MappingFragment StoreEntitySet="tblProductionTimeline">
+                <ScalarProperty Name="Step" ColumnName="Step" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="PlanCreationDate" ColumnName="PlanCreationDate" />
+                <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+                <ScalarProperty Name="DayTo" ColumnName="DayTo" />
+                <ScalarProperty Name="DayFrom" ColumnName="DayFrom" />
+                <ScalarProperty Name="NumberOfProductionPlan" ColumnName="NumberOfProductionPlan" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="RefNumber" ColumnName="RefNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProductionTimelineWeeklies">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblProductionTimelineWeekly">
+              <MappingFragment StoreEntitySet="tblProductionTimelineWeekly">
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="Stage" ColumnName="Stage" />
+                <ScalarProperty Name="Slot" ColumnName="Slot" />
+                <ScalarProperty Name="DateOfManufacture" ColumnName="DateOfManufacture" />
+                <ScalarProperty Name="ProductionTimelineID" ColumnName="ProductionTimelineID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProvines">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblProvine">
+              <MappingFragment StoreEntitySet="tblProvine">
+                <ScalarProperty Name="PhoneCode" ColumnName="PhoneCode" />
+                <ScalarProperty Name="CodeName" ColumnName="CodeName" />
+                <ScalarProperty Name="DivisionType" ColumnName="DivisionType" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblWards">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblWard">
+              <MappingFragment StoreEntitySet="tblWard">
+                <ScalarProperty Name="DistrictCode" ColumnName="DistrictCode" />
+                <ScalarProperty Name="CodeName" ColumnName="CodeName" />
+                <ScalarProperty Name="DivisionType" ColumnName="DivisionType" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblItemsFormulaDetails">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblItemsFormulaDetail">
+              <MappingFragment StoreEntitySet="tblItemsFormulaDetail">
+                <ScalarProperty Name="ItemFormulaId" ColumnName="ItemFormulaId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="ItemRating" ColumnName="ItemRating" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblContracts">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblContract">
+              <MappingFragment StoreEntitySet="tblContract">
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="AttachFile" ColumnName="AttachFile" />
+                <ScalarProperty Name="FinishDay" ColumnName="FinishDay" />
+                <ScalarProperty Name="SignDay" ColumnName="SignDay" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblStocks">
+            <EntityTypeMapping TypeName="XHTD_SERVICES.Data.Entities.tblStock">
+              <MappingFragment StoreEntitySet="tblStock">
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="UpdateDay" ColumnName="UpdateDay" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDay" ColumnName="CreateDay" />
+                <ScalarProperty Name="Manager" ColumnName="Manager" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

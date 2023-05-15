@@ -49,6 +49,7 @@ namespace XHTD_SERVICES.Helper
                 grant_type = account["grant_type"].ToString(),
                 username = account["username"].ToString(),
                 password = account["password"].ToString(),
+                environtment = 2
             };
 
             var client = new RestClient(apiUrl["GetToken"]);

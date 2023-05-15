@@ -12,23 +12,16 @@ namespace XHTD_SERVICES.Data.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class tblBill
+    public partial class tblItemsFormulaDetail
     {
         public int Id { get; set; }
-        public string Code { get; set; }
-        public Nullable<int> TypeId { get; set; }
-        public string PartnerId { get; set; }
-        public string StockCode1 { get; set; }
-        public string StockCode2 { get; set; }
-        public string Note { get; set; }
-        public Nullable<double> TotalMoney { get; set; }
-        public Nullable<double> TotalDiscount { get; set; }
-        public Nullable<double> TotalBanlancer { get; set; }
-        public string UserName { get; set; }
+        public string ItemCode { get; set; }
+        public double ItemRating { get; set; }
         public Nullable<System.DateTime> CreateDay { get; set; }
         public string CreateBy { get; set; }
         public Nullable<System.DateTime> UpdateDay { get; set; }
         public string UpdateBy { get; set; }
-        public string DeliveryCode { get; set; }
+        public int ItemId { get; set; }
+        public int ItemFormulaId { get; set; }
     }
 }

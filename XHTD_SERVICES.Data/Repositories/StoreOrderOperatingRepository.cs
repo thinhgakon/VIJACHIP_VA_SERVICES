@@ -11,7 +11,7 @@ using XHTD_SERVICES.Data.Common;
 
 namespace XHTD_SERVICES.Data.Repositories
 {
-    public partial class StoreOrderOperatingRepository : BaseRepository <tblStoreOrderOperating>
+    public partial class StoreOrderOperatingRepository : BaseRepository<tblStoreOrderOperating>
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -21,12 +21,12 @@ namespace XHTD_SERVICES.Data.Repositories
 
         public bool CheckExist(int? orderId)
         {
-            var orderExist = _appDbContext.tblStoreOrderOperatings.FirstOrDefault(x => x.OrderId == orderId);
-            if (orderExist != null)
+            if (_appDbContext.tblStoreOrderOperatings.Any(x => x.OrderId == orderId))
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
+
         }
 
         public async Task<tblStoreOrderOperating> GetDetail(string deliveryCode)
@@ -149,9 +149,9 @@ namespace XHTD_SERVICES.Data.Repositories
                         return false;
                     }
 
-                    if(step == (int)OrderStep.DA_LAY_HANG)
+                    if (step == (int)OrderStep.DA_LAY_HANG)
                     {
-                        if(order.Step >= (int)OrderStep.DA_LAY_HANG)
+                        if (order.Step >= (int)OrderStep.DA_LAY_HANG)
                         {
                             return true;
                         }
@@ -244,10 +244,10 @@ namespace XHTD_SERVICES.Data.Repositories
 
                 var timeToCall = DateTime.Now.AddMinutes(-2);
 
-                var query = from v in dbContext.tblStoreOrderOperatings 
-                            join r in dbContext.tblTroughTypeProducts 
+                var query = from v in dbContext.tblStoreOrderOperatings
+                            join r in dbContext.tblTroughTypeProducts
                             on v.TypeProduct equals r.TypeProduct
-                            where 
+                            where
                                 v.Step == (int)OrderStep.DA_CAN_VAO
                                 && v.IsVoiced == false
                                 && v.IndexOrder > 0
@@ -567,7 +567,7 @@ namespace XHTD_SERVICES.Data.Repositories
                 {
                     var order = await dbContext.tblStoreOrderOperatings
                                                 .Where(x => x.DeliveryCode == deliveryCode
-                                                         && x.Step > (int)OrderStep.DA_CAN_VAO 
+                                                         && x.Step > (int)OrderStep.DA_CAN_VAO
                                                          && x.Step < (int)OrderStep.DA_HOAN_THANH
                                                          && x.WeightOut == null
                                                       )
@@ -753,7 +753,7 @@ namespace XHTD_SERVICES.Data.Repositories
             using (var dbContext = new XHTD_Entities())
             {
                 var orders = await dbContext.tblStoreOrderOperatings
-                                    .Where(x => x.CountReindex >= maxCountReindex 
+                                    .Where(x => x.CountReindex >= maxCountReindex
                                                 && (x.Step == (int)OrderStep.DA_CAN_RA || x.Step == (int)OrderStep.DANG_GOI_XE))
                                     .ToListAsync();
                 return orders;
@@ -820,7 +820,8 @@ namespace XHTD_SERVICES.Data.Repositories
                                 .OrderByDescending(x => x.IndexOrder)
                                 .FirstOrDefault();
 
-                if(order != null) { 
+                if (order != null)
+                {
                     return (int)order.IndexOrder;
                 }
 
@@ -932,7 +933,7 @@ namespace XHTD_SERVICES.Data.Repositories
         {
             using (var dbContext = new XHTD_Entities())
             {
-                List<string> listMachine = new List<string>() { 
+                List<string> listMachine = new List<string>() {
                     MachineCode.CODE_MACHINE_1,
                     MachineCode.CODE_MACHINE_2,
                     MachineCode.CODE_MACHINE_3,
@@ -1007,8 +1008,8 @@ namespace XHTD_SERVICES.Data.Repositories
                 var orders = await dbContext.tblStoreOrderOperatings
                                     .Where(x => x.Step == (int)OrderStep.DA_CAN_VAO
                                                 && (
-                                                    x.CatId == OrderCatIdCode.XI_MANG_XA 
-                                                    || 
+                                                    x.CatId == OrderCatIdCode.XI_MANG_XA
+                                                    ||
                                                     (x.CatId == OrderCatIdCode.XI_MANG_BAO && x.TypeXK == OrderTypeXKCode.JUMBO)
                                                     )
                                                 && x.IsVoiced == false

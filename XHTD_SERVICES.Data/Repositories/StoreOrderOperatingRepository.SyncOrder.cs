@@ -27,7 +27,7 @@ namespace XHTD_SERVICES.Data.Repositories
                 var productItem = _appDbContext.tblItems.FirstOrDefault(x => x.Code == itemCode);
                 var productId = productItem?.ItemId ?? null;
 
-                if (!CheckExist(websaleOrder.Id))
+                if (CheckExist(websaleOrder.Id))
                 {
                     var newOrderOperating = new tblStoreOrderOperating
                     {
@@ -46,6 +46,9 @@ namespace XHTD_SERVICES.Data.Repositories
                         IsVoiced = false,
                         LogProcessOrder = $@"#Sync Tạo đơn lúc {syncTime}",
                         LogJobAttach = $@"#Sync Tạo đơn lúc {syncTime}",
+                        RealRequireNumber = (decimal)websaleOrder.NumberOrder,
+                        ItemCode = websaleOrder.ItemCode,
+                        Note = websaleOrder.Note,
                     };
 
                     _appDbContext.tblStoreOrderOperatings.Add(newOrderOperating);

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0fde4a980fac4ca9b28e76176cb9d184" Name="Diagram1">
+      <Diagram DiagramId="0fde4a980fac4ca9b28e76176cb9d184" Name="Diagram1" ZoomLevel="128">
         <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblAccount" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblAccountGroup" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblAccountGroupFunction" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
@@ -35,9 +35,7 @@
         <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblRfid" Width="1.5" PointX="0.75" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblRfidSign" Width="1.5" PointX="2.75" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblScaleOperating" Width="1.5" PointX="10.75" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblStock" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblStoreOrderLocation" Width="1.5" PointX="16.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblStoreOrderOperating" Width="1.5" PointX="16.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblStoreOrderOperatingPriority" Width="1.5" PointX="18.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblSystemParameter" Width="1.5" PointX="18.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblTrough" Width="1.5" PointX="18.75" PointY="8.75" IsExpanded="true" />
@@ -46,11 +44,33 @@
         <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblVehicle" Width="1.5" PointX="2.75" PointY="19.75" IsExpanded="true" />
         <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblZone" Width="1.5" PointX="12.75" PointY="19.75" IsExpanded="true" />
         <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblCompany" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblContract" Width="1.5" PointX="4.75" PointY="20.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblContractItem" Width="1.5" PointX="20.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblPartnersCareInfo" Width="1.5" PointX="6.75" PointY="20.75" IsExpanded="true" />
         <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblProductionPlanProduct" Width="1.5" PointX="8.75" PointY="20.75" IsExpanded="true" />
         <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblStoreOrderOperatingVoice" Width="1.5" PointX="20.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblStoreOrderOperating" Width="1.5" PointX="15.375" PointY="19.75" />
+        <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.C__EFMigrationsHistory" Width="1.5" PointX="21.375" PointY="5.75" />
+        <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.sysdiagram" Width="1.5" PointX="17.375" PointY="22.75" />
+        <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblContractItem" Width="1.5" PointX="23.375" PointY="0.75" />
+        <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblDistrict" Width="1.5" PointX="23.625" PointY="14" />
+        <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblItemsFormula" Width="1.5" PointX="23.375" PointY="4.75" />
+        <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblProductionProposal" Width="1.5" PointX="17" PointY="42.125" />
+        <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblProductionProposalDetail" Width="1.5" PointX="19.25" PointY="41.875" />
+        <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblProductionTimeline" Width="1.5" PointX="21.375" PointY="19" />
+        <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblProductionTimelineWeekly" Width="1.5" PointX="23.625" PointY="19.375" />
+        <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblProvine" Width="1.5" PointX="21.375" PointY="14.375" />
+        <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblWard" Width="1.5" PointX="25.875" PointY="14.125" />
+        <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblItemsFormulaDetail" Width="1.5" PointX="23.375" PointY="9.75" />
+        <AssociationConnector Association="XHTD_SERVICES.Data.Entities.FK__tblDistri__Provi__65E11278" />
+        <AssociationConnector Association="XHTD_SERVICES.Data.Entities.FK__tblDistri__Provi__66D536B1" />
+        <AssociationConnector Association="XHTD_SERVICES.Data.Entities.FK__tblWard__Distric__62108194" />
+        <AssociationConnector Association="XHTD_SERVICES.Data.Entities.FK__tblWard__Distric__6304A5CD" />
+        <AssociationConnector Association="XHTD_SERVICES.Data.Entities.FK__tblWard__Distric__67C95AEA" />
+        <AssociationConnector Association="XHTD_SERVICES.Data.Entities.FK__tblWard__Distric__68BD7F23" />
+        <AssociationConnector Association="XHTD_SERVICES.Data.Entities.FK__tblProduc__Produ__35FCF52C" />
+        <AssociationConnector Association="XHTD_SERVICES.Data.Entities.FK__tblProduc__Produ__4BEC364B" />
+        <AssociationConnector Association="XHTD_SERVICES.Data.Entities.FK__tblProduc__Produ__33208881" />
+        <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblContract" Width="1.5" PointX="11.375" PointY="23.75" />
+        <EntityTypeShape EntityType="XHTD_SERVICES.Data.Entities.tblStock" Width="1.5" PointX="19.375" PointY="24.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
