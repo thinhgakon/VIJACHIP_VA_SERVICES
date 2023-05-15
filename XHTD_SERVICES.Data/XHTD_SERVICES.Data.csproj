@@ -64,12 +64,6 @@
     <Compile Include="Common\ScaleCode.cs" />
     <Compile Include="Common\ScaleConfig.cs" />
     <Compile Include="Common\URIConfig.cs" />
-    <Compile Include="Entities\C__EFMigrationsHistory.cs">
-      <DependentUpon>XHTDModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\sysdiagram.cs">
-      <DependentUpon>XHTDModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\tblAccount.cs">
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
@@ -77,6 +71,15 @@
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\tblAccountGroupFunction.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tblAccountGroupRight.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tblAccountGroupStatu.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tblAccountRight.cs">
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\tblBill.cs">
@@ -148,7 +151,13 @@
     <Compile Include="Entities\tblMachineTypeProduct.cs">
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\tblMenu.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\tblNotification.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tblPackaging.cs">
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\tblPartner.cs">
@@ -161,6 +170,15 @@
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\tblPartnersGroup.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tblPickUpPlan.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tblPickUpPlanItem.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tblPickUpPlanOrder.cs">
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\tblPrintConfig.cs">
@@ -187,6 +205,9 @@
     <Compile Include="Entities\tblProductionTimelineWeekly.cs">
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\tblProductionTimelineWeeklyItem.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\tblProvine.cs">
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
@@ -196,10 +217,19 @@
     <Compile Include="Entities\tblRfidSign.cs">
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\tblRight.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\tblScaleOperating.cs">
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\tblStatu.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\tblStock.cs">
+      <DependentUpon>XHTDModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\tblStockItem.cs">
       <DependentUpon>XHTDModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\tblStoreOrderLocation.cs">
@@ -286,7 +316,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Entities\XHTDModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
