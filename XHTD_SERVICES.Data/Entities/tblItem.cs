@@ -22,12 +22,13 @@ namespace XHTD_SERVICES.Data.Entities
         public Nullable<double> Price { get; set; }
         public string Note { get; set; }
         public bool State { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
+        public Nullable<bool> IsFinishedProduct { get; set; }
+        public int Type { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
-        public Nullable<bool> IsFinishedProduct { get; set; }
-        public int Type { get; set; }
+        public Nullable<int> PackagingId { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace XHTD_SERVICES.Data.Entities
     {
         public int Id { get; set; }
         public string Code { get; set; }
+        public string DeliveryCode { get; set; }
         public Nullable<int> TypeId { get; set; }
         public string PartnerId { get; set; }
         public string StockCode1 { get; set; }
@@ -29,6 +30,5 @@ namespace XHTD_SERVICES.Data.Entities
         public string CreateBy { get; set; }
         public Nullable<System.DateTime> UpdateDay { get; set; }
         public string UpdateBy { get; set; }
-        public string DeliveryCode { get; set; }
     }
 }

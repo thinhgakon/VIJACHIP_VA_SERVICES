@@ -17,6 +17,7 @@ namespace XHTD_SERVICES.Data.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblProductionPlan()
         {
+            this.tblProductionPlan1 = new HashSet<tblProductionPlan>();
             this.tblProductionProposals = new HashSet<tblProductionProposal>();
         }
     
@@ -35,7 +36,11 @@ namespace XHTD_SERVICES.Data.Entities
         public string UpdateBy { get; set; }
         public bool IsDeleted { get; set; }
         public int Step { get; set; }
+        public Nullable<int> ParentId { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblProductionPlan> tblProductionPlan1 { get; set; }
+        public virtual tblProductionPlan tblProductionPlan2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblProductionProposal> tblProductionProposals { get; set; }
     }

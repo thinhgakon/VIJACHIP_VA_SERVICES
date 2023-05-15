@@ -12,9 +12,14 @@ namespace XHTD_SERVICES.Data.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class C__EFMigrationsHistory
+    public partial class tblAccountGroupRight
     {
-        public string MigrationId { get; set; }
-        public string ProductVersion { get; set; }
+        public int Id { get; set; }
+        public Nullable<int> GroupId { get; set; }
+        public string RightId { get; set; }
+        public Nullable<System.DateTime> CreateDay { get; set; }
+        public string CreateBy { get; set; }
+        public Nullable<System.DateTime> UpdateDay { get; set; }
+        public string UpdateBy { get; set; }
     }
 }

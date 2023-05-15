@@ -12,28 +12,31 @@ namespace XHTD_SERVICES.Data.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class tblProductionProposal
+    public partial class tblPickUpPlan
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblProductionProposal()
+        public tblPickUpPlan()
         {
-            this.tblProductionProposalDetails = new HashSet<tblProductionProposalDetail>();
+            this.tblPickUpPlanItems = new HashSet<tblPickUpPlanItem>();
         }
     
         public int Id { get; set; }
+        public string RefNumber { get; set; }
         public string Title { get; set; }
-        public string SubTitle { get; set; }
-        public Nullable<int> ProductionPlanId { get; set; }
+        public string Number { get; set; }
+        public Nullable<System.DateTime> DayFrom { get; set; }
+        public Nullable<System.DateTime> DayTo { get; set; }
+        public string PartnerId { get; set; }
+        public Nullable<System.DateTime> PlanCreationDate { get; set; }
+        public string Note { get; set; }
         public Nullable<System.DateTime> CreateDay { get; set; }
         public string CreateBy { get; set; }
         public Nullable<System.DateTime> UpdateDay { get; set; }
         public string UpdateBy { get; set; }
         public bool IsDeleted { get; set; }
         public int Step { get; set; }
-        public string ItemFormulaIds { get; set; }
     
-        public virtual tblProductionPlan tblProductionPlan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblProductionProposalDetail> tblProductionProposalDetails { get; set; }
+        public virtual ICollection<tblPickUpPlanItem> tblPickUpPlanItems { get; set; }
     }
 }

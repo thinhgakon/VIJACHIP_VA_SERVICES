@@ -25,6 +25,7 @@ namespace XHTD_SERVICES.Data.Entities
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string Manager { get; set; }
+        public Nullable<int> ProviderType { get; set; }
         public Nullable<int> SectorId { get; set; }
         public Nullable<int> ProvinceId { get; set; }
         public Nullable<int> DistrictId { get; set; }
@@ -37,6 +38,5 @@ namespace XHTD_SERVICES.Data.Entities
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> ZoneId { get; set; }
-        public Nullable<int> ProviderType { get; set; }
     }
 }

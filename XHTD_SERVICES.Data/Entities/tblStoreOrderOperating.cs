@@ -19,6 +19,7 @@ namespace XHTD_SERVICES.Data.Entities
         public string DriverName { get; set; }
         public string NameDistributor { get; set; }
         public Nullable<double> ItemId { get; set; }
+        public string ItemCode { get; set; }
         public string ItemUnitName { get; set; }
         public string NameProduct { get; set; }
         public string CatId { get; set; }
@@ -105,10 +106,6 @@ namespace XHTD_SERVICES.Data.Entities
         public string PackageNumber { get; set; }
         public Nullable<int> Shifts { get; set; }
         public Nullable<bool> AutoScaleOut { get; set; }
-        public Nullable<System.DateTime> CreateDay { get; set; }
-        public string CreateBy { get; set; }
-        public Nullable<System.DateTime> UpdateDay { get; set; }
-        public string UpdateBy { get; set; }
         public Nullable<int> Type { get; set; }
         public string PartnerId { get; set; }
         public string Note { get; set; }
@@ -116,6 +113,11 @@ namespace XHTD_SERVICES.Data.Entities
         public string CodeExport { get; set; }
         public string ReasonExport { get; set; }
         public string NoteExport { get; set; }
-        public string ItemCode { get; set; }
+        public Nullable<decimal> RealNumber { get; set; }
+        public Nullable<System.DateTime> CreateDay { get; set; }
+        public Nullable<System.DateTime> UpdateDay { get; set; }
+        public string CreateBy { get; set; }
+        public string UpdateBy { get; set; }
+        public Nullable<System.DateTime> TimeEstimateExport { get; set; }
     }
 }

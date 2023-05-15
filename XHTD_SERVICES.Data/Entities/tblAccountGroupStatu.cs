@@ -12,18 +12,14 @@ namespace XHTD_SERVICES.Data.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class tblProductionTimelineWeekly
+    public partial class tblAccountGroupStatu
     {
         public int Id { get; set; }
-        public int ProductionTimelineID { get; set; }
-        public Nullable<System.DateTime> DateOfManufacture { get; set; }
-        public Nullable<int> Slot { get; set; }
-        public string Stage { get; set; }
+        public Nullable<int> GroupId { get; set; }
+        public string StatusId { get; set; }
         public Nullable<System.DateTime> CreateDay { get; set; }
         public string CreateBy { get; set; }
         public Nullable<System.DateTime> UpdateDay { get; set; }
         public string UpdateBy { get; set; }
-    
-        public virtual tblProductionTimeline tblProductionTimeline { get; set; }
     }
 }
